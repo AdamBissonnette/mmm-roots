@@ -33,12 +33,16 @@ function roots_scripts() {
   wp_register_script('roots_plugins', get_template_directory_uri() . '/assets/js/plugins.js', false, null, true);
   wp_register_script('fitvids', get_template_directory_uri() . '/assets/js/vendor/jquery.fitvids.js', false, null, true);
   wp_register_script('flexslider', get_template_directory_uri() . '/assets/js/vendor/jquery.flexslider.js', false, null, true);
+  wp_register_script('google_map','http://maps.google.com/maps/api/js?sensor=true', false, null, true);
+  wp_register_script('jquery_map', get_template_directory_uri() . '/assets/js/vendor/jquery.ui.map.min.js', false, null, true);
   wp_register_script('roots_main', get_template_directory_uri() . '/assets/js/main.js', false, null, true);
   wp_enqueue_script('jquery');
   wp_enqueue_script('modernizr');
   wp_enqueue_script('roots_plugins');
   wp_enqueue_script('fitvids');
   wp_enqueue_script('flexslider');
+  wp_enqueue_script('google_map');
+  wp_enqueue_script('jquery_map');
   wp_enqueue_script('roots_main');
 }
 add_action('wp_enqueue_scripts', 'roots_scripts', 100);
