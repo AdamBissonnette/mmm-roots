@@ -53,7 +53,7 @@ add_shortcode( 'section_block', 'section_block' );
 
 function getFormattedPostContent($postid, $linktext)
 {
-	global $MM_Roots;
+	global $MMM_Roots;
 	//Load content "blurb" from a given post or page
      $output = '';
      $postFormat = '<p class="post-content">%s</p><a class="btn btn-small btn-primary" href="%s"><i class="icon-search"></i>%s</a>';
@@ -67,7 +67,7 @@ function getFormattedPostContent($postid, $linktext)
     	}
     	else
     	{
-     		$postContent = $MM_Roots->get_post_meta($postid, "blurb", true);
+     		$postContent = $MMM_Roots->get_post_meta($postid, "blurb", true);
      	}
      	
         $output = sprintf($postFormat, $postContent, get_permalink($postid), $linktext);
@@ -137,8 +137,8 @@ add_shortcode( 'video', 'video' );
 
 
 function mm_fact_me() {
-	global $MM_Roots;
-	$facts = $MM_Roots->get_setting('mm_facts');
+	global $MMM_Roots;
+	$facts = $MMM_Roots->get_setting('mm_facts');
 	$facts = explode("\n", $facts);
 	return wptexturize( $facts[ mt_rand( 0, count( $facts ) - 1 ) ] );
 }
@@ -303,7 +303,7 @@ function ListReviews($atts)
 		'class' => ''
 	), $atts) );
 
-	global $MM_Roots;
+	global $MMM_Roots;
 
 	$args = array('post_type' => 'review', 'orderby' => $orderby, 'numberposts' => $numberposts);
 	$reviews = get_posts($args);
@@ -334,9 +334,9 @@ function ListReviews($atts)
     $wrapTemplate = '<div class="col-lg-%s">%s</div>';
 
 	foreach ($reviews as $post):
-		$ReviewerName = $MM_Roots->get_post_meta($post->ID, "name", true);
-		$ReviewContent = $MM_Roots->get_post_meta($post->ID, "content", true);
-		$ReviewUrl = $MM_Roots->get_post_meta($post->ID, "url", true);
+		$ReviewerName = $MMM_Roots->get_post_meta($post->ID, "name", true);
+		$ReviewContent = $MMM_Roots->get_post_meta($post->ID, "content", true);
+		$ReviewUrl = $MMM_Roots->get_post_meta($post->ID, "url", true);
 
 		$caption = "";
 

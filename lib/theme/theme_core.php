@@ -5,18 +5,18 @@
 
 include_once('functions.php');
 
-class MM_Roots
+class MMM_Roots
 {
 	var $_settings;
-    var $_options_pagename = 'mm_roots';
-    var $_settings_key = 'mm_roots';
-    var $_meta_key = 'mm_roots_meta';
+    var $_options_pagename = 'mmm_roots';
+    var $_settings_key = 'mmm_roots';
+    var $_meta_key = 'mmm_roots_meta';
     //var $_setting_prefix = 'mm_roots_';
     var $_save_key = '';
     var $_versionnum = 1.0;
 	var $menu_page;
 	
-	function MM_Roots()
+	function MMM_Roots()
 	{
 		return $this->__construct();
 	}
@@ -46,7 +46,7 @@ class MM_Roots
 		add_action( 'save_post', array(&$this, '_save_post_meta'), 10, 2 );
     }
 
-    static function MM_Roots_install() {
+    static function MMM_Roots_install() {
     	global $wpdb;
     	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     	
@@ -101,9 +101,9 @@ class MM_Roots
         //wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
         //wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.9.1.min.js', false, null);
         //wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
-        wp_enqueue_style('admin', get_template_directory_uri() . '/assets/css/mm_roots_admin.css', false, null);
+        wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
   		wp_enqueue_script('formtools', get_template_directory_uri() . '/assets/js/formtools.js', false, null);
-  		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/js/mm_roots_admin.js', false, null);
+  		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
         
 		include_once('ui/admin_ui.php');
     }
@@ -271,11 +271,11 @@ class MM_Roots
 
 }
 
-register_activation_hook(__FILE__,array('MM_Roots', 'MM_Roots_install'));
+register_activation_hook(__FILE__,array('MMM_Roots', 'MMM_Roots_install'));
 
-add_action( 'init', 'MM_Roots_Init', 5 );
-function MM_Roots_Init()
+add_action( 'init', 'MMM_Roots_Init', 5 );
+function MMM_Roots_Init()
 {
-    global $MM_Roots;
-    $MM_Roots = new MM_Roots();
+    global $MMM_Roots;
+    $MMM_Roots = new MMM_Roots();
 }

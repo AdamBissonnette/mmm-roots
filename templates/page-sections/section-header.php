@@ -1,8 +1,8 @@
 <?php
-	global $MM_Roots;
+	global $MMM_Roots;
 
-	$tagline = $MM_Roots->get_post_meta(get_the_ID(), "tagline", true);
-	$keyword = $MM_Roots->get_post_meta(get_the_ID(), "keyword", true);
+	$tagline = $MMM_Roots->get_post_meta(get_the_ID(), "tagline", true);
+	$keyword = $MMM_Roots->get_post_meta(get_the_ID(), "keyword", true);
 
 	$keywordTemplate = '<p>%s</p>';
 

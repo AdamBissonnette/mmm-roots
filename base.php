@@ -19,8 +19,8 @@
 
 
   <?php
-      global $MM_Roots;
-      $animation = $MM_Roots->get_setting("jumbotron_animation");
+      global $MMM_Roots;
+      $animation = $MMM_Roots->get_setting("jumbotron_animation");
       if ($animation != '')
       {
         $animation = sprintf('animation: "%s"', $animation);
@@ -28,8 +28,8 @@
       
       $jumbotron = $animation;
       
-      $mapPosition = $MM_Roots->get_setting("map_position");
-      $mapZoom = $MM_Roots->get_setting("zoom_level");
+      $mapPosition = $MMM_Roots->get_setting("map_position");
+      $mapZoom = $MMM_Roots->get_setting("zoom_level");
   ?>
 
   <script type="text/javascript">  

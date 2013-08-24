@@ -1,7 +1,7 @@
-<div class="mmpm_wrapper">
+<div class="mmm_wrapper">
 	<div class="row">
 		<div class="span12">
-			<h3>MM Roots Options</h3>
+			<h3>MMM Roots Options</h3>
 		</div>
 	</div>
 
@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="span12">
 				<div class="form-actions clearfix">
-					<a href="#" id="btnOptionsSave" name="mm_pm_settings_saved" class="btn btn-primary">Save</a>
+					<a href="#" id="btnOptionsSave" name="mmm_settings_saved" class="btn btn-primary">Save</a>
 					<input type="reset" class="btn" />
 				</div>
 			</div>

@@ -1,9 +1,9 @@
 <?php
-global $MM_Roots;
+global $MMM_Roots;
 
-$jumbotronCategory = $MM_Roots->get_setting("jumbotron_category");
-$jumbotronCount = $MM_Roots->get_setting("jumbotron_count");
-$jumbotronDefault = $MM_Roots->get_setting("jumbotron_default");
+$jumbotronCategory = $MMM_Roots->get_setting("jumbotron_category");
+$jumbotronCount = $MMM_Roots->get_setting("jumbotron_count");
+$jumbotronDefault = $MMM_Roots->get_setting("jumbotron_default");
 
 ?>
 
@@ -18,22 +18,22 @@ $posts = get_posts( "category=" . $jumbotronCategory . "&numberposts=" . $jumbot
 foreach ($posts as $post)
 {
 
-	$blurb = $MM_Roots->get_post_meta($post->ID, "blurb", true);
+	$blurb = $MMM_Roots->get_post_meta($post->ID, "blurb", true);
 		
 	if ($blurb == null)
 	{
 		$blurb = wp_trim_words($post->post_content, 25, "...");
 	}
 
-	$readmoretext = $MM_Roots->get_post_meta($post->ID, "readmoretext", true);
+	$readmoretext = $MMM_Roots->get_post_meta($post->ID, "readmoretext", true);
 
 	if ($readmoretext == null)
 	{
 		$readmoretext = "Read More";
 	}
 
-	$image = $MM_Roots->get_post_meta($post->ID, "image", true);
-	$icon = $MM_Roots->get_post_meta($post->ID, "icon", true);
+	$image = $MMM_Roots->get_post_meta($post->ID, "image", true);
+	$icon = $MMM_Roots->get_post_meta($post->ID, "icon", true);
 
 	if ($image == null)
 	{

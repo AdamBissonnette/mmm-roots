@@ -1,8 +1,8 @@
 <?php
-	global $MM_Roots;
+	global $MMM_Roots;
 
-	$sectionID = $MM_Roots->get_post_meta(get_the_ID(), "sectionID", true);
-	$inlineStyles = $MM_Roots->get_post_meta(get_the_ID(), "inline-styles", true);
+	$sectionID = $MMM_Roots->get_post_meta(get_the_ID(), "sectionID", true);
+	$inlineStyles = $MMM_Roots->get_post_meta(get_the_ID(), "inline-styles", true);
 
 	if (isset($background))
 	{
