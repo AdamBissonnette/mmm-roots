@@ -10,8 +10,8 @@
 	}
 ?>
 
-<section id="<?php echo $sectionID; ?>" class="home-section" style="<?php echo $inlineStyles; ?>">
-	<?php get_template_part('templates/home-sections/section', 'header'); ?>
+<section id="<?php echo $sectionID; ?>" class="page-section" style="<?php echo $inlineStyles; ?>">
+	<?php get_template_part('templates/page-sections/section', 'header'); ?>
 
 	<div class="container content">
       <div class="row-fluid">
