@@ -27,11 +27,7 @@
 						array('id' => 'icon_default',
 							'label' => 'Default Icon',
 							'type' => 'text',
-							'options' => array( "placeholder" => 'ex. cloud', "note" => "Hint: font-awesome icon class" )),
-								array('id' => 'sections',
-									'label' => 'Sections',
-									'type' => 'select',
-									'options' => array("isMultiple" => true, "data" => getTaxonomySelectArray("page-section")))
+							'options' => array( "placeholder" => 'ex. cloud', "note" => "Hint: font-awesome icon class" ))
 					)
 				),
 				array(

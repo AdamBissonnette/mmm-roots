@@ -15,31 +15,31 @@ $jumbotronDefault = $MMM_Roots->get_setting("jumbotron_default");
 
 $posts = get_posts( "category=" . $jumbotronCategory . "&numberposts=" . $jumbotronCount);
 
-foreach ($posts as $post)
+foreach ($posts as $jumbotron)
 {
 
-	$blurb = $MMM_Roots->get_post_meta($post->ID, "blurb", true);
+	$blurb = $MMM_Roots->get_post_meta($jumbotron->ID, "blurb", true);
 		
 	if ($blurb == null)
 	{
-		$blurb = wp_trim_words($post->post_content, 25, "...");
+		$blurb = wp_trim_words($jumbotron->post_content, 25, "...");
 	}
 
-	$readmoretext = $MMM_Roots->get_post_meta($post->ID, "readmoretext", true);
+	$readmoretext = $MMM_Roots->get_post_meta($jumbotron->ID, "readmoretext", true);
 
 	if ($readmoretext == null)
 	{
 		$readmoretext = "Read More";
 	}
 
-	$image = $MMM_Roots->get_post_meta($post->ID, "image", true);
-	$icon = $MMM_Roots->get_post_meta($post->ID, "icon", true);
+	$image = $MMM_Roots->get_post_meta($jumbotron->ID, "image", true);
+	$icon = $MMM_Roots->get_post_meta($jumbotron->ID, "icon", true);
 
 	if ($image == null)
 	{
 		if (has_post_thumbnail())
 		{
-			$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID), 'full');
+			$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $jumbotron->ID), 'full');
 			$image = $thumb[0];
 		}
 		else if ($icon == "")
@@ -62,12 +62,12 @@ foreach ($posts as $post)
 			</div>
 			<div class="col-lg-5 _offset1">
 				<div class="slogan">
-					<h1><?php echo $post->post_title; ?></h1>
+					<h1><?php echo $jumbotron->post_title; ?></h1>
 					<p class="lead"><?php
 					echo $blurb;
 					?></p>
 					<p>
-					<a class="btn btn-large btn-primary" href="<?php echo get_permalink($post); ?>"><?php echo $readmoretext; ?></a>
+					<a class="btn btn-large btn-primary" href="<?php echo get_permalink($jumbotron); ?>"><?php echo $readmoretext; ?></a>
 					</p>
 				</div>
 			</div>

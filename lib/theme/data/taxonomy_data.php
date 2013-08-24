@@ -71,8 +71,8 @@
 									'options' => array( "note" => 'Note: Used instead of the excerpt in some cases' )),
 								array('id' => 'sections',
 									'label' => 'Sections',
-									'type' => 'select',
-									'options' => array("isMultiple" => true, "data" => getTaxonomySelectArray("page-section")))
+									'type' => 'text',
+									'options' => array("isMultiple" => false, "data" => getTaxonomySelectArray("page-section")))
 							)
 						)
 					)

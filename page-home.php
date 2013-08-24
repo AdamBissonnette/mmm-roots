@@ -3,7 +3,6 @@
 Template Name: Homepage
 */
 global $MMM_Roots;
-
 ?>
 
 <?php
