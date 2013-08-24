@@ -13,20 +13,56 @@
     }
   ?>
 
-  <div class="wrap container" role="document">
-    <div class="content row">
-      <div class="main <?php echo roots_main_class(); ?>" role="main">
-        <?php include roots_template_path(); ?>
-      </div><!-- /.main -->
-      <?php if (roots_display_sidebar()) : ?>
-      <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
-        <?php include roots_sidebar_path(); ?>
-      </aside><!-- /.sidebar -->
-      <?php endif; ?>
-    </div><!-- /.content -->
-  </div><!-- /.wrap -->
+  <?php include roots_template_path(); ?>
 
   <?php get_template_part('templates/footer'); ?>
+
+
+  <?php
+      global $MM_Roots;
+      $animation = $MM_Roots->get_setting("jumbotron_animation");
+      if ($animation != '')
+      {
+        $animation = sprintf('animation: "%s"', $animation);
+      }
+      
+      $jumbotron = $animation;
+      
+      $mapPosition = $MM_Roots->get_setting("map_position");
+      $mapZoom = $MM_Roots->get_setting("zoom_level");
+  ?>
+
+  <script type="text/javascript">  
+    jQuery().ready(function($) {
+    // ------------------------------------
+    // FlexSlider
+    // ------------------------------------
+    $('.flexslider').flexslider({
+      <?php echo $jumbotron; ?>
+    });
+  
+    // ------------------------------------
+    // Google Maps
+    // ------------------------------------
+    $('#map_canvas').gmap({'scrollwheel': false}).bind('init', function() {
+      $('#map_canvas').gmap('addMarker', {'position': '<?php echo $mapPosition; ?>', 'bounds': true}).click(function() {});
+      $('#map_canvas').gmap('option', 'zoom', <?php echo $mapZoom; ?>);
+    });
+  });
+  </script>
+
+  <div class="modal hide fade" id="mm-dialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 id="mm-dialog-title">Message Sent!</h3>
+    </div>
+     <div class="modal-body" id="mm-dialog-message">
+        <p>Your message has been sent.  We will be in touch shortly!</p>
+     </div>
+     <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+      </div>
+  </div>
 
 </body>
 </html>
