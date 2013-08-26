@@ -36,7 +36,11 @@
 									'options' => array( "note" => 'Note: Used instead of the excerpt in some cases', "class" => "span5" )),
 								array('id' => 'readmoretext',
 									'label' => 'Read More Text',
-									'type' => 'text')
+									'type' => 'text'),
+								array('id' => 'sections',
+									'label' => 'Sections',
+									'type' => 'text',
+									'options' => array("isMultiple" => false, "data" => getTaxonomySelectArray("page-section")))
 							)
 						)
 					)
