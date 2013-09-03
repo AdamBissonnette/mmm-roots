@@ -7488,6 +7488,10 @@ html[xmlns] .slides {
 /* Direction Nav */
 .flex-direction-nav {
   *height: 0;
+  visibility: hidden;
+}
+.flexslider:hover .flex-direction-nav {
+  visibility: visible;
 }
 .flex-direction-nav a {
   display: block;

@@ -19,7 +19,19 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 @media (min-width: 1200px) { }
 
+@media (max-width: 1000px) {
+      .navbar-default .search-form {display: none;}
+}
+
 
 /* ==========================================================================
    MMM Roots
    ========================================================================== */
+
+body {background: url('../img/sos.png'); color: #808080;}
+h1,h2,h3,h4,h5 { color: #678e8d;}
+
+.navbar-default { background-color: #fff; box-shadow: 0 3px 5px #dadada; padding: 10px 0;}
+.navbar-default .search-form {width: 220px; margin-top: 5px; float: right;}
+
+.section-jumbotron {border-bottom: 1px solid #333;}

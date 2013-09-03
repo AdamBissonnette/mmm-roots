@@ -7,7 +7,7 @@ $jumbotronDefault = $MMM_Roots->get_setting("jumbotron_default");
 
 ?>
 
-<section class="section-content section-jumbotron" id="section-jumbotron">
+<section class="section-content section-jumbotron clearfix" id="section-jumbotron">
         <div class="flexslider">
 
     	    <ul class="slides">
