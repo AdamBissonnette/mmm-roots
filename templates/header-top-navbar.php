@@ -1,3 +1,8 @@
+<?php
+  global $MMM_Roots;
+  $brand_logo = $MMM_Roots->get_setting("brand_logo");
+?>
+
 <header class="banner navbar navbar-default navbar-static-top" role="banner">
   <div class="container">
     <form role="search" method="get" class="search-form form-inline" action="<?php echo home_url('/'); ?>">
@@ -17,7 +22,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo home_url(); ?>/"><?php bloginfo('name'); ?></a>
+      <a class="navbar-brand" href="<?php echo home_url(); ?>/"><img class="logo" src="<?php echo $brand_logo; ?>" title="<?php bloginfo('name'); ?>"></a>
     </div>
 
     <nav class="collapse navbar-collapse" role="navigation">

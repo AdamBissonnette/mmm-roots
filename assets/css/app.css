@@ -25,13 +25,43 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 
 /* ==========================================================================
-   MMM Roots
+   MMM Roots - Base
    ========================================================================== */
 
-body {background: url('../img/sos.png'); color: #808080;}
-h1,h2,h3,h4,h5 { color: #678e8d;}
+body {background: url('../img/sos.png'); color: #5d5d5d;}
+h1,h2,h3,h4,h5 { font-family: 'Quattrocento', serif; color: #678e8d;}
 
-.navbar-default { background-color: #fff; box-shadow: 0 3px 5px #dadada; padding: 10px 0;}
-.navbar-default .search-form {width: 220px; margin-top: 5px; float: right;}
+/* ==========================================================================
+   MMM Roots - Navbar
+   ========================================================================== */
+.navbar-default { background-color: #fff; box-shadow: 0 3px 5px #dadada; padding: 6px 0;}
+.navbar-brand {padding: 0 30px 0 0;}
+.navbar-default .nav {margin-top: 10px; font-size: 1.2em;}
+.navbar-default .search-form {width: 220px; margin-top: 15px; float: right;}
 
-.section-jumbotron {border-bottom: 1px solid #333;}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover {background: none; padding-bottom: 0;}
+
+.menu-caret {display: none; position: absolute; top: 36px; left: 40%; font-size: 2em; text-align: center; color: #fff;}
+.navbar-default .navbar-nav > .active .menu-caret, .navbar-default .navbar-nav > li:hover .menu-caret {display: block;}
+
+.navbar-brand .logo {height: 60px;}
+
+/* ==========================================================================
+   MMM Roots - Sections
+   ========================================================================== */
+section {border-bottom: 1px solid #dadada; padding: 20px 0;}
+.section-jumbotron {padding: 0;}
+
+/* ==========================================================================
+   MMM Roots - Footer
+   ========================================================================== */
+
+.sidebar section {border: none;}
+
+/* ==========================================================================
+   MMM Roots - Footer
+   ========================================================================== */
+
+footer .sidebar {padding: 0 0 20px;}
+
+footer section {border: none;}
