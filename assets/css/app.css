@@ -28,7 +28,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    MMM Roots - Base
    ========================================================================== */
 
-body {background: url('../img/sos.png'); color: #5d5d5d;}
+body { color: #5d5d5d; background: url('../img/cream_pixels.png');}
 h1,h2,h3,h4,h5 { font-family: 'Quattrocento', serif; color: #678e8d;}
 
 /* ==========================================================================
@@ -49,7 +49,7 @@ h1,h2,h3,h4,h5 { font-family: 'Quattrocento', serif; color: #678e8d;}
 /* ==========================================================================
    MMM Roots - Sections
    ========================================================================== */
-section {border-bottom: 1px solid #dadada; padding: 20px 0;}
+section {padding: 20px 0;}
 .section-jumbotron {padding: 0;}
 
 /* ==========================================================================
