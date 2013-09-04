@@ -82,3 +82,5 @@ foreach ($posts as $jumbotron)
 </ul>
     </div>
 </section>
+
+<?php wp_reset_postdata(); ?>
