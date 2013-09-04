@@ -10,7 +10,7 @@
 	}
 ?>
 
-<section id="<?php echo $sectionID; ?>" class="page-section" style="<?php echo $inlineStyles; ?>">
+<section id="<?php echo $sectionID; ?>" class="section-page" style="<?php echo $inlineStyles; ?>">
 	<?php get_template_part('templates/page-sections/section', 'header'); ?>
 
 	<div class="container content">

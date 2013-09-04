@@ -1,5 +1,20 @@
+<?php
+  global $MMM_Roots;
+  $brand_logo = $MMM_Roots->get_setting("brand_logo");
+?>
+
 <header class="banner navbar navbar-default navbar-static-top" role="banner">
   <div class="container">
+    <form role="search" method="get" class="search-form form-inline" action="<?php echo home_url('/'); ?>">
+      <div class="input-group">
+        <input type="search" value="<?php if (is_search()) { echo get_search_query(); } ?>" name="s" class="search-field form-control" placeholder="<?php _e('Search', 'roots'); ?> <?php bloginfo('name'); ?>">
+        <label class="hide"><?php _e('Search for:', 'roots'); ?></label>
+        <span class="input-group-btn">
+          <button type="submit" class="search-submit btn btn-default"><i class="icon-search"></i></button>
+        </span>
+      </div>
+    </form>
+
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -7,7 +22,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo home_url(); ?>/"><?php bloginfo('name'); ?></a>
+      <a class="navbar-brand" href="<?php echo home_url(); ?>/"><img class="logo" src="<?php echo $brand_logo; ?>" title="<?php bloginfo('name'); ?>"></a>
     </div>
 
     <nav class="collapse navbar-collapse" role="navigation">
