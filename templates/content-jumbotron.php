@@ -35,14 +35,14 @@ foreach ($posts as $jumbotron)
 	$image = $MMM_Roots->get_post_meta($jumbotron->ID, "image", true);
 	$icon = $MMM_Roots->get_post_meta($jumbotron->ID, "icon", true);
 
-	if ($image == null)
+	if ($image == "" && $icon == "")
 	{
-		if (has_post_thumbnail())
+		if (has_post_thumbnail($jumbotron->ID))
 		{
-			$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $jumbotron->ID), 'full');
+			$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $jumbotron->ID), 'medium');
 			$image = $thumb[0];
 		}
-		else if ($icon == "")
+		else
 		{
 			$image = $jumbotronDefault;
 		}
@@ -57,7 +57,7 @@ foreach ($posts as $jumbotron)
 				<?php if ($image) { ?>
 				  	<img src="<?php echo $image; ?>" />
 				  <?php } else {  ?>
-					<i class="icon-<?php echo $icon; ?> icon"></i>
+					<i class="icon-<?php echo $icon; ?>"></i>
 				  <?php } ?>
 			</div>
 			<div class="col-lg-5 _offset1">
