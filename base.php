@@ -40,14 +40,6 @@
     $('.flexslider').flexslider({
       <?php echo $jumbotron; ?>
     });
-  
-    // ------------------------------------
-    // Google Maps
-    // ------------------------------------
-    $('#map_canvas').gmap({'scrollwheel': false}).bind('init', function() {
-      $('#map_canvas').gmap('addMarker', {'position': '<?php echo $mapPosition; ?>', 'bounds': true}).click(function() {});
-      $('#map_canvas').gmap('option', 'zoom', <?php echo $mapZoom; ?>);
-    });
   });
   </script>
 
