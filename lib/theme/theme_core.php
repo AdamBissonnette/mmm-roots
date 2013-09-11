@@ -36,9 +36,6 @@ class MMM_Roots
 
 		//Page / Post Meta
 		add_post_type_support( 'page', 'excerpt' ); //Pages should have this - it's silly not to!
-
-		//add_action("admin_init", array(&$this, "page_metabox") );
-		//add_action("admin_init", array(&$this, "post_metabox") );
 		
 		//Custom Meta
 		add_action( 'admin_init', array(&$this, 'custom_metabox'));
@@ -83,6 +80,11 @@ class MMM_Roots
 		$options = $data["args"];
 
 		$values = get_post_meta($post->ID, $this->_meta_key, true);
+
+        wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
+  		wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/admin/css/font-awesome.css', false, null);
+  		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
+
 		include_once('ui/meta_post_ui.php');
 	}
 
@@ -98,9 +100,9 @@ class MMM_Roots
             wp_die( __('You do not have sufficient permissions to access this page.') );
         }
         
-        //wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
-        //wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.9.1.min.js', false, null);
-        //wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
+        wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
+        wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.9.1.min.js', false, null);
+        wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
         wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
   		wp_enqueue_script('formtools', get_template_directory_uri() . '/assets/js/formtools.js', false, null);
   		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);

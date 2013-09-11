@@ -44,7 +44,7 @@ function OutputThemeData($tabs, $values=null)
 {
 	$isFirst = true;
 
-	echo '<div class="span12 tabbable">';
+	echo '<div class="col-sm-12 tabbable">';
 
 
 	if (count($tabs) > 1)
@@ -125,7 +125,7 @@ function OutputTabContent($id, $sections, $isFirst, $values)
 
 function OutputSection($name, $size, $fields, $values)
 {
-	$sectionTemplate = '<div class="span%s"><legend>%s</legend>';
+	$sectionTemplate = '<div class="col-sm-%s"><legend>%s</legend>';
 	echo sprintf($sectionTemplate, $size, $name);
 
 	foreach ($fields as $field)
