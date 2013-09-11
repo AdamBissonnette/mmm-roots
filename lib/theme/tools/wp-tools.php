@@ -19,6 +19,9 @@ function createFormField($label, $name, $value, $type, $options=null)
 		case 'editor':
 			$useField = false;
 		break;
+		case 'checkbox':
+			$field = createCheckbox($label, $value, $options);
+		break;
 	}
 
 	echo '<div class="control-group">' .
@@ -85,6 +88,32 @@ function createTextArea($label, $value, $options = null)
 		 $label, //name
 		 $placeholder,
 		 stripslashes($value) //value
+	);
+	
+	if ($note) {
+		$output .= sprintf('<p class="help-block">%s</p>', $note);
+	}
+	
+	return $output;
+}
+
+function createCheckbox($label, $value, $options = null)
+{
+	extract( merge_options(
+		array("class" => "", "placeholder" => "", "note" => ""), $options)
+	);
+
+	$checked = "";
+	if ($value != "") //if there is a value then it's checked
+	{
+		$checked = ' checked="checked"';
+	}
+
+	$output = sprintf('<input type="checkbox" id="%s" class="%s" name="%s"%s />', 
+		 $label, //id
+		 $class,
+		 $label, //name
+		 $checked //value
 	);
 	
 	if ($note) {

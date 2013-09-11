@@ -1,10 +1,12 @@
 <?php
   global $MMM_Roots;
   $brand_logo = $MMM_Roots->get_setting("brand_logo");
+  $search_in_navigation = $MMM_Roots->get_setting("search_in_navigation");
 ?>
 
 <header class="banner navbar navbar-default navbar-static-top" role="banner">
   <div class="container">
+    <?php if ($search_in_navigation != "") { ?>
     <form role="search" method="get" class="search-form form-inline" action="<?php echo home_url('/'); ?>">
       <div class="input-group">
         <input type="search" value="<?php if (is_search()) { echo get_search_query(); } ?>" name="s" class="search-field form-control" placeholder="<?php _e('Search', 'roots'); ?> <?php bloginfo('name'); ?>">
@@ -14,6 +16,7 @@
         </span>
       </div>
     </form>
+    <?php } ?>
 
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

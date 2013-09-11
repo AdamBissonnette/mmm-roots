@@ -18,6 +18,11 @@
 						array('id' => 'brand_logo',
 							'label' => 'Navbar / Brand Logo',
 							'type' => 'text'),
+						array('id' => 'search_in_navigation',
+							  'label' => 'Search In Navigation',
+							  'type' => 'checkbox',
+							  'options' => array("note" => "Note: When enabled a searchbar will appear in the navigation")
+							),
 						array('id' => 'footer_logo',
 							'label' => 'Footer Logo',
 							'type' => 'text'),
