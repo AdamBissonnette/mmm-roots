@@ -22,6 +22,9 @@ function createFormField($label, $name, $value, $type, $options=null)
 		case 'checkbox':
 			$field = createCheckbox($label, $value, $options);
 		break;
+		case 'image':
+			$field = createImageUpload($label, $name, $value, $options);
+		break;
 	}
 
 	echo '<div class="control-group">' .
@@ -184,6 +187,27 @@ function createSelect($label, $selectedKey, $options)
 		$output .= sprintf('<p class="help-block">%s</p>', $note);
 	}
 	
+	return $output;
+}
+
+function createImageUpload($label, $name, $value, $options)
+{
+	extract( merge_options(
+		array("class" => "", "note" => "", "isMultiple" => false, "updateOnChange" => ""), $options)
+	);
+
+	$template = '
+				<div class="image_uploader %2$s">
+					<input id="%1$s" type="text" name="%1$s" value="%3$s" />
+					<a title="Set Image" id="%1$s_upload" class="thickbox %1$s_upload">Upload %4$s</a>
+				</div>';
+
+	$output = sprintf($template, $label, $class, $value, $name);
+
+	if ($note != "") {
+		$output .= sprintf('<p class="help-block">%s</p>', $note);
+	}
+
 	return $output;
 }
 

@@ -1,3 +1,5 @@
+var activeUpload = null;
+
 function SaveOptions(form)
 {
 	var formdata = jQuery(form).serializeArray()
@@ -19,6 +21,29 @@ function FinalizeOptions(data)
 	}
 }
 
+function SetupUploadControls()
+{
+	// jQuery('.image_upload_control').bind("click", function(this) {
+	// 	var text = jQuery(this)
+	// })
+
+	jQuery('.image_uploader a').click(function(event) {
+		activeUpload = jQuery(event.target).prev();
+
+		//console.log("set active upload to " + event.target + " " + activeUpload.attr('id'));
+
+		//formfield = jQuery('#upload_image').attr('name');
+		tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
+		return false;
+	});
+		 
+	window.send_to_editor = function(html) {
+	 imgurl = jQuery('img',html).attr('src');
+	 jQuery(activeUpload).val(imgurl);
+	 tb_remove();
+	}
+}
+
 jQuery(document).ready(function($) {
 	$('#btnOptionsSave').click(function(e) {
 		e.preventDefault();
@@ -27,4 +52,6 @@ jQuery(document).ready(function($) {
 			SaveOptions(jQuery("form#theme_settings"));
 		}
 	});
+
+	SetupUploadControls();
 });

@@ -17,7 +17,7 @@
 					'fields' => array(
 						array('id' => 'brand_logo',
 							'label' => 'Navbar / Brand Logo',
-							'type' => 'text'),
+							'type' => 'image'),
 						array('id' => 'search_in_navigation',
 							  'label' => 'Search In Navigation',
 							  'type' => 'checkbox',

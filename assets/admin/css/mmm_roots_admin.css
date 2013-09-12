@@ -177,6 +177,6 @@ border:1px solid #ccc;border-bottom-color:#bbb; border-radius:15px;-webkit-box-s
 	left: -1000px;
 }
 
-select.font-awesome {font-family: FontAwesome;}
+select.font-awesome, select.font-awesome option {font-family: FontAwesome;}
 
 .form-controls {margin-top: 15px;}

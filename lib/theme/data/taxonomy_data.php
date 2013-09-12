@@ -30,7 +30,7 @@
 									'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray())),
 								array('id' => 'image',
 									'label' => 'Image',
-									'type' => 'text'),
+									'type' => 'image'),
 								array('id' => 'sections',
 									'label' => 'Sections',
 									'type' => 'text')
@@ -59,7 +59,7 @@
 									'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray())),
 								array('id' => 'image',
 									'label' => 'Image',
-									'type' => 'text'),
+									'type' => 'image'),
 								array('id' => 'sections',
 									'label' => 'Sections',
 									'type' => 'text',
