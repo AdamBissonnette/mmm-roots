@@ -23,9 +23,6 @@
 							  'type' => 'checkbox',
 							  'options' => array("note" => "Note: When enabled a searchbar will appear in the navigation")
 							),
-						array('id' => 'footer_logo',
-							'label' => 'Footer Logo',
-							'type' => 'text'),
 						array('id' => 'footer_text',
 							'label' => 'Footer Text',
 							'type' => 'textarea'),
@@ -33,33 +30,6 @@
 							'label' => 'Default Icon',
 							'type' => 'select',
 							'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray()))
-					)
-				)
-			)
-		),
-		array('name' => 'Homepage Options',
-			'id' => 'home',
-			'icon' => 'home',
-			'sections' => array(
-				array(
-					'name' => 'Jumbotron Options',
-					'size' => 6,
-					'fields' => array(
-						array('id' => 'jumbotron_category',
-							'label' => 'Jumbotron Category',
-							'type' => 'select',
-							'options' => array( "data" => getCategorySelectArray())),
-						array('id' => 'jumbotron_count',
-							'label' => 'Number Jumbotron Slides to Display',
-							'type' => 'text'),
-						array('id' => 'jumbotron_default',
-							'label' => 'Default Image to Display',
-							'type' => 'text'),
-						array('id' => 'jumbotron_animation',
-							'label' => 'Transition Effect',
-							'type' => 'select',
-							'options' => array( "data" => array("slide"=>"Slide", "fade"=>"Fade"))
-							)
 					)
 				)
 			)
