@@ -43,5 +43,9 @@
 				</div>
 			</div>
 		</div>
+
+		<?php add_thickbox(); ?>
+
+
 	</div>
 </div>
