@@ -179,4 +179,9 @@ border:1px solid #ccc;border-bottom-color:#bbb; border-radius:15px;-webkit-box-s
 
 select.font-awesome, select.font-awesome option {font-family: FontAwesome;}
 
+.chzn-container-multi .chzn-choices .search-field input {height: auto !important;}
+
 .form-controls {margin-top: 15px;}
+.control-group {margin: 15px 0;}
+.chzn-container {width: 200px !important;}
+.chzn-drop {width: 200px !important;}

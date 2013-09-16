@@ -44,6 +44,84 @@ function SetupUploadControls()
 	}
 }
 
+function SetupChosenSelects()
+{
+	jQuery(".chzn-select").chosen().chosenSortable();
+      jQuery(".chzn-select-deselect").chosen({
+        allow_single_deselect: true
+      });
+
+    UpdateChosenFromTextField();
+}
+
+
+function SetupSaveEvents()
+{
+	jQuery(document.forms).bind("submit", function() {
+		 //UpdateTextFieldFromChosen();
+	});
+}
+
+function UpdateTextFieldFromChosen()
+{
+	var select = jQuery('.multi-chzn');
+
+	//Update Chosen Text Field
+    select.each(function() {
+   		var ret = [];
+    	var curSelect = jQuery(this);
+    	var curText = curSelect.prev();
+
+    	curSelect.next().find('.search-choice').each(function(){
+      		var selectedValue = jQuery(this).find('span').text();
+      		ret.push(selectedValue);
+  		});
+
+		//console.log(ret);
+		curSelect.find('option').each(function(){
+			var curOpt = jQuery(this);
+
+			if (curOpt.prop('selected'))
+			{
+				var inArray = jQuery.inArray(this.text, ret);
+
+				if (inArray != -1)
+				{
+					ret[inArray] = this.value;
+				}
+			}
+		});
+
+		curText.val(ret);
+    });
+}
+
+function UpdateChosenFromTextField()
+{
+	var select = jQuery('.multi-chzn');
+
+	//Update Chosen Text Field
+    select.each(function() {
+   		var ret = [];
+    	var curSelect = jQuery(this);
+    	var curText = curSelect.prev();
+
+    	var selectedValues = curText.val().split(",");
+
+    	curSelect.find('option').each(function() {
+    		var curOpt = jQuery(this);
+
+    		curOpt.prop("selected", "");
+
+    		var inArray = jQuery.inArray(this.value, selectedValues);
+			if (inArray != -1)
+			{
+				curOpt.prop("selected", "selected");
+			}
+	    	curSelect.trigger('liszt:updated');
+    	});
+    });
+}
 jQuery(document).ready(function($) {
 	$('#btnOptionsSave').click(function(e) {
 		e.preventDefault();
@@ -54,4 +132,6 @@ jQuery(document).ready(function($) {
 	});
 
 	SetupUploadControls();
+	SetupChosenSelects();
+	//SetupSaveEvents();
 });

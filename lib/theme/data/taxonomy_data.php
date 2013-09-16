@@ -33,7 +33,8 @@
 									'type' => 'image'),
 								array('id' => 'sections',
 									'label' => 'Sections',
-									'type' => 'text')
+									'type' => 'select',
+									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true))
 							)
 						)
 					)
@@ -62,8 +63,8 @@
 									'type' => 'image'),
 								array('id' => 'sections',
 									'label' => 'Sections',
-									'type' => 'text',
-									'options' => array("isMultiple" => false, "data" => getTaxonomySelectArray("page-section")))
+									'type' => 'select',
+									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true))
 							)
 						)
 					)
@@ -89,7 +90,7 @@
 											'not_found'           => 'No sections found',
 											'not_found_in_trash'  => 'No sections found in Trash',
 										),
-				'supports'            => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+				'supports'            => array( 'title', 'editor', 'thumbnail' ),
 				//'taxonomies'          => array( 'category', 'post_tag' ),
 				'hierarchical'        => false,
 				'public'              => false,

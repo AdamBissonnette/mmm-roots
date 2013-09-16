@@ -29,7 +29,11 @@
 						array('id' => 'icon_default',
 							'label' => 'Default Icon',
 							'type' => 'select',
-							'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray()))
+							'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray())),
+								array('id' => 'sections',
+									'label' => 'Sections',
+									'type' => 'select',
+									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true, "addBlank" => false))
 					)
 				)
 			)
