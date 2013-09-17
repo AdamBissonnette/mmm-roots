@@ -131,20 +131,17 @@ function createSelect($label, $selectedKey, $options)
 	);
 
 	$selectedKeys = array();
-
-	//check if the data is an associative array
-	$isAssociative = !(bool)count(array_filter(array_keys($data), 'is_string'));
+	$selectedKeys = explode(",", $selectedKey);
 
 	//If it's a multi select then flag it as such and explode the key into keys
 	if ($isMultiple)
 	{
-		$selectedKeys = explode(",", $selectedKey);
 		$output = sprintf('<input style="display: none" type="text" id="%1$s" name="%1$s" value="%2$s" />', $label, $selectedKey);
-		$output .= sprintf('<select id="%s_chsn" class="%s multi-chzn chzn-select chzn-sortable" multiple>', $label, $class, $label);
+		$output .= sprintf('<select id="mmm-select-%s" class="%s mmm-select-multi" multiple>', $label, $class, $label);
 	}
 	else
 	{
-		$output = sprintf('<select id="%s" class="%s chzn-select chzn-sortable" name="%s">', $label, $class, $label);
+		$output = sprintf('<select id="%s" class="%s mmm-select" name="%s">', $label, $class, $label);
 		
 	}
 
@@ -153,47 +150,14 @@ function createSelect($label, $selectedKey, $options)
 		$output .= createSelectOption("", "", $placeholder);
 	}
 
-	/*
-	The following may appear confusing but it essentially handles allows us to have flexible data
-	- Our arrays can be associative (key=>value) or straight up groups of keys
-	- The arrays can also have multiple selected keys or single selected keys
-
-	These cases require the four loops which have subtle differences - more code == less processing on individual values
-	*/
-	if ($isAssociative)
-	{
-		if ($isMultiple)
-		{
-			foreach ($data as $key => $text)
-			{
-				$output .= createSelectOptionMultiple($key, $selectedKeys, $text);
-			}
-		}
-		else
-		{
-			foreach ($data as $key => $text)
-			{
-				$output .= createSelectOption($key, $selectedKey, $text);
-			}	
-		}
-
+	foreach ($selectedKeys as $key) {
+			$output .= createSelectOption($key, $data[$key], true);
+			unset($data[$key]);
 	}
-	else
+
+	foreach ($data as $key => $text)
 	{
-		if ($isMultiple)
-		{
-			foreach ($data as $key)
-			{
-				$output .= createSelectOptionMultiple($key, $selectedKeys, $key);
-			}
-		}
-		else
-		{
-			foreach ($data as $key)
-			{
-				$output .= createSelectOption($key, $selectedKey, $key);
-			}	
-		}
+		$output .= createSelectOption($key, $text);
 	}
 	
 	$output .= '</select>';
@@ -201,16 +165,16 @@ function createSelect($label, $selectedKey, $options)
 	if ($note != "") {
 		$output .= sprintf('<p class="help-block">%s</p>', $note);
 	}
-	
+
 	return $output;
 }
 
-function createSelectOption($key, $selectedKey, $text)
+function createSelectOption($key, $text, $selected = false)
 {
 	$optionTemplate = '<option value="%s"%s>%s</option>\n';
 	$output = "";
 
-	if ($selectedKey == $key)
+	if ($selected)
 	{
 		$output .= sprintf($optionTemplate, $key, ' selected', $text);
 	}
@@ -218,16 +182,6 @@ function createSelectOption($key, $selectedKey, $text)
 	{
 		$output .= sprintf($optionTemplate, $key, '', $text);
 	}
-
-	return $output;
-}
-
-function createSelectOptionMultiple($key, $selectedKeys, $text)
-{
-	$optionTemplate = '<option value="%s"%s>%s</option>\n';
-	$output = "";
-
-	$output .= sprintf($optionTemplate, $key, '', $text);
 
 	return $output;
 }

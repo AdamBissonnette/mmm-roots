@@ -44,87 +44,43 @@ function SetupUploadControls()
 	}
 }
 
-function SetupChosenSelects()
+function SetupSelects()
 {
-	jQuery(".chzn-select").chosen().chosenSortable();
-      jQuery(".chzn-select-deselect").chosen({
-        allow_single_deselect: true
-      });
-
-    UpdateChosenFromTextField();
+	jQuery(".mmm-select-multi").select2Sortable();
+	jQuery(".mmm-select").select2();
 }
 
 
 function SetupSaveEvents()
 {
 	jQuery(document.forms).bind("submit", function() {
-		 //UpdateTextFieldFromChosen();
+		UpdateTextFieldFromSelect();
 	});
 }
 
-function UpdateTextFieldFromChosen()
+function UpdateTextFieldFromSelect()
 {
-	var select = jQuery('.multi-chzn');
+	var selects = jQuery('.mmm-select-multi');
 
 	//Update Chosen Text Field
-    select.each(function() {
-   		var ret = [];
+    jQuery.each(selects, function() {
     	var curSelect = jQuery(this);
-    	var curText = curSelect.prev();
 
-    	curSelect.next().find('.search-choice').each(function(){
-      		var selectedValue = jQuery(this).find('span').text();
-      		ret.push(selectedValue);
-  		});
+ 		var curTextID = curSelect.prop("id").replace('mmm-select-','');;
+    	var curText = jQuery('#' + curTextID);
+    	var joinedSelectValue = curSelect.select2SortableOrder().val().join(",");
 
-		//console.log(ret);
-		curSelect.find('option').each(function(){
-			var curOpt = jQuery(this);
-
-			if (curOpt.prop('selected'))
-			{
-				var inArray = jQuery.inArray(this.text, ret);
-
-				if (inArray != -1)
-				{
-					ret[inArray] = this.value;
-				}
-			}
-		});
-
-		curText.val(ret);
+		curText.val(joinedSelectValue);
     });
 }
 
-function UpdateChosenFromTextField()
-{
-	var select = jQuery('.multi-chzn');
 
-	//Update Chosen Text Field
-    select.each(function() {
-   		var ret = [];
-    	var curSelect = jQuery(this);
-    	var curText = curSelect.prev();
-
-    	var selectedValues = curText.val().split(",");
-
-    	curSelect.find('option').each(function() {
-    		var curOpt = jQuery(this);
-
-    		curOpt.prop("selected", "");
-
-    		var inArray = jQuery.inArray(this.value, selectedValues);
-			if (inArray != -1)
-			{
-				curOpt.prop("selected", "selected");
-			}
-	    	curSelect.trigger('liszt:updated');
-    	});
-    });
-}
 jQuery(document).ready(function($) {
 	$('#btnOptionsSave').click(function(e) {
 		e.preventDefault();
+
+		UpdateTextFieldFromSelect();
+
 		if (ValidateForm("form#theme_settings"))
 		{
 			SaveOptions(jQuery("form#theme_settings"));
@@ -132,6 +88,12 @@ jQuery(document).ready(function($) {
 	});
 
 	SetupUploadControls();
-	SetupChosenSelects();
-	//SetupSaveEvents();
+	SetupSelects();
+	SetupSaveEvents();
+
+	sel = $('.mmm-select-multi');
+	seldata = $('#sections');
 });
+
+var sel;
+var seldata;

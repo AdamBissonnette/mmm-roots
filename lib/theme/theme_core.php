@@ -82,11 +82,11 @@ class MMM_Roots
 		$values = get_post_meta($post->ID, $this->_meta_key, true);
 
         wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
-        wp_enqueue_style('chsn', get_template_directory_uri() . '/assets/admin/css/chosen.css', false, null);
+        wp_enqueue_style('select2', get_template_directory_uri() . '/assets/admin/css/select2.css', false, null);
   		wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/admin/css/font-awesome.css', false, null);
+  		wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
+  		wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
   		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
-  		wp_enqueue_script('chsn', get_template_directory_uri() . '/assets/js/vendor/chosen.jquery.min.js', false, null);
-  		wp_enqueue_script('chsnsort', get_template_directory_uri() . '/assets/js/vendor/jquery-chosen-sortable.min.js', false, null);
 
 		include_once('ui/meta_post_ui.php');
 	}
@@ -105,12 +105,14 @@ class MMM_Roots
         
         wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
         wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
-        wp_enqueue_style('chsn', get_template_directory_uri() . '/assets/admin/css/chosen.css', false, null);
+        wp_enqueue_style('select2', get_template_directory_uri() . '/assets/admin/css/select2.css', false, null);
 
-        wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.9.1.min.js', false, null);
         wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
-        wp_enqueue_script('chsn', get_template_directory_uri() . '/assets/js/vendor/chosen.jquery.min.js', false, null);
-        wp_enqueue_script('chsnsort', get_template_directory_uri() . '/assets/js/vendor/jquery-chosen-sortable.min.js', false, null);
+
+        wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.7.1.min.js', false, null);
+        
+        wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
+       	wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
   		wp_enqueue_script('formtools', get_template_directory_uri() . '/assets/js/formtools.js', false, null);
   		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
         
@@ -215,25 +217,22 @@ class MMM_Roots
 
 				$fieldID = $field["id"];
 
+				/*if ($metadata[$fieldID] != null)
+				{
+					$metadata[$fieldID] .= "," . $fieldID;
+				}
+				else
+				{
+					$metadata[$fieldID] = $fieldID;
+				}*/
+
 				$metadata[$fieldID] = $fieldID;
 			}
 
-
-			// foreach ($metafields as $field) {
-
-			// 	$fieldID = $field["id"];
-
-			// 	if (array_key_exists($fieldID, $metadata))
-			// 	{
-			// 		$metadata[$fieldID] .= "," . $_POST[$fieldID];
-			// 	}
-			// 	else
-			// 	{
-			// 		$metadata[$fieldID] = $_POST[$fieldID];
-			// 	}
-			// }
-
 			update_post_meta( $post_id, $this->_meta_key, $_REQUEST );
+
+			//TODO account for array data like multi select meta
+			//update_post_meta( $post_id, $this->_meta_key, array_map( 'strip_tags', $_REQUEST ) );
 	    }
 	}
 

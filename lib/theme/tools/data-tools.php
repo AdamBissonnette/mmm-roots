@@ -37,7 +37,23 @@ if (!function_exists('arr_to_obj')) {
 		return $return;
 	}
 }
+if (!function_exists('arr_to_associative')) {	
+	//Convert array to be associative if necessary
+	function arr_to_associative($array = array()) {
+		if ((bool)count(array_filter(array_keys($array), 'is_string')))
+		{
+			$assoc = array();
+			foreach ($array as $key)
+			{
+				$assoc[$key] = $key;
+			}
 
+			$array = $assoc;
+		}
+
+		return $array;
+	}
+}
 
 //Theme Data Functions
 function OutputThemeData($tabs, $values=null)
