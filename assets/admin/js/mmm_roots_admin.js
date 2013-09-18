@@ -60,8 +60,14 @@ function UpdateTextFieldFromSelect()
 
  		var curTextID = curSelect.prop("id").replace('mmm-select-','');;
     	var curText = jQuery('#' + curTextID);
-    	var joinedSelectValue = curSelect.select2SortableOrder().val().join(",");
 
+    	var selectValue = curSelect.select2SortableOrder().val();
+
+    	if (selectValue != null)
+    	{
+    		var joinedSelectValue = selectValue.join(",");
+    	}
+    	
 		curText.val(joinedSelectValue);
     });
 }

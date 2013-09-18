@@ -130,40 +130,49 @@ function createSelect($label, $selectedKey, $options)
 		array("class" => "", "placeholder" => "", "note" => "", "data" => array(), "isMultiple" => false, "addBlank" => false), $options)
 	);
 
-	$selectedKeys = array();
-	$selectedKeys = explode(",", $selectedKey);
+	$output = "No Data Available";
 
-	//If it's a multi select then flag it as such and explode the key into keys
-	if ($isMultiple)
+	if (count($data) > 0)
 	{
-		$output = sprintf('<input style="display: none" type="text" id="%1$s" name="%1$s" value="%2$s" />', $label, $selectedKey);
-		$output .= sprintf('<select id="mmm-select-%s" class="%s mmm-select-multi" multiple>', $label, $class, $label);
-	}
-	else
-	{
-		$output = sprintf('<select id="%s" class="%s mmm-select" name="%s">', $label, $class, $label);
-		
-	}
-
-	if ($addBlank)
-	{
-		$output .= createSelectOption("", "", $placeholder);
-	}
-
-	foreach ($selectedKeys as $key) {
-			$output .= createSelectOption($key, $data[$key], true);
-			unset($data[$key]);
-	}
-
-	foreach ($data as $key => $text)
-	{
-		$output .= createSelectOption($key, $text);
-	}
+		$selectedKeys = array();
 	
-	$output .= '</select>';
+		if ($selectedKey != "")
+		{
+			$selectedKeys = explode(",", $selectedKey);
+		}
+		
+		//If it's a multi select then flag it as such and explode the key into keys
+		if ($isMultiple)
+		{
+			$output = sprintf('<input style="display: none" type="text" id="%1$s" name="%1$s" value="%2$s" />', $label, $selectedKey);
+			$output .= sprintf('<select id="mmm-select-%s" class="%s mmm-select-multi" multiple>', $label, $class, $label);
+		}
+		else
+		{
+			$output = sprintf('<select id="%s" class="%s mmm-select" name="%s">', $label, $class, $label);
+			
+		}
 
-	if ($note != "") {
-		$output .= sprintf('<p class="help-block">%s</p>', $note);
+		if ($addBlank)
+		{
+			$output .= createSelectOption("", "", $placeholder);
+		}
+
+		foreach ($selectedKeys as $key) {
+				$output .= createSelectOption($key, $data[$key], true);
+				unset($data[$key]);
+		}
+
+		foreach ($data as $key => $text)
+		{
+			$output .= createSelectOption($key, $text);
+		}
+		
+		$output .= '</select>';
+
+		if ($note != "") {
+			$output .= sprintf('<p class="help-block">%s</p>', $note);
+		}
 	}
 
 	return $output;
