@@ -23,16 +23,9 @@ function FinalizeOptions(data)
 
 function SetupUploadControls()
 {
-	// jQuery('.image_upload_control').bind("click", function(this) {
-	// 	var text = jQuery(this)
-	// })
-
 	jQuery('.image_uploader a').click(function(event) {
 		activeUpload = jQuery(event.target).prev();
 
-		//console.log("set active upload to " + event.target + " " + activeUpload.attr('id'));
-
-		//formfield = jQuery('#upload_image').attr('name');
 		tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
 		return false;
 	});
@@ -46,8 +39,8 @@ function SetupUploadControls()
 
 function SetupSelects()
 {
-	jQuery(".mmm-select-multi").select2Sortable();
 	jQuery(".mmm-select").select2();
+	jQuery(".mmm-select-multi").select2Sortable();
 }
 
 
@@ -62,7 +55,6 @@ function UpdateTextFieldFromSelect()
 {
 	var selects = jQuery('.mmm-select-multi');
 
-	//Update Chosen Text Field
     jQuery.each(selects, function() {
     	var curSelect = jQuery(this);
 
@@ -90,10 +82,4 @@ jQuery(document).ready(function($) {
 	SetupUploadControls();
 	SetupSelects();
 	SetupSaveEvents();
-
-	sel = $('.mmm-select-multi');
-	seldata = $('#sections');
 });
-
-var sel;
-var seldata;
