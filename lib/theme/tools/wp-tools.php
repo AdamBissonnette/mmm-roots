@@ -204,7 +204,7 @@ function createImageUpload($label, $name, $value, $options)
 	$template = '
 				<div class="image_uploader %2$s">
 					<input id="%1$s" type="text" name="%1$s" value="%3$s" />
-					<a title="Set Image" id="%1$s_upload" class="thickbox %1$s_upload">Upload %4$s</a>
+					<a title="Set Image" id="%1$s_upload" class="thickbox mmm-upload %1$s_upload">Upload %4$s</a>
 				</div>';
 
 	$output = sprintf($template, $label, $class, $value, $name);

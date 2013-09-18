@@ -1,20 +1,12 @@
 <?php
-/**
- * Enqueue scripts and stylesheets
- *
- * Enqueue stylesheets in the following order:
- * 1. /theme/assets/css/bootstrap.css
- * 2. /theme/assets/css/app.css
- *
- * Enqueue scripts in the following order:
- * 1. jquery-1.10.2.min.js via Google CDN
- * 2. /theme/assets/js/vendor/modernizr-2.6.2.min.js
- * 3. /theme/assets/js/plugins.js (in footer)
- * 4. /theme/assets/js/main.js    (in footer)
- */
+
 function roots_scripts() {
   wp_enqueue_style('roots_bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
   wp_enqueue_style('roots_app', get_template_directory_uri() . '/assets/css/app.css', false, null);
+
+  //theme style - hacks or emergencies only!
+  wp_enqueue_style('style', get_template_directory_uri() . '/style.css', false, null);
+
   wp_enqueue_style('quattrocento', 'http://fonts.googleapis.com/css?family=Quattrocento:400,700', false, null);
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:

@@ -7,7 +7,7 @@
 		</div>
 
 		<div class="row">
-			<form id="theme_settings" name="<?php echo $this->_setting_prefix . '_settings_form'; ?>" onsubmit="javascript: SaveOptions(this);" class="form-horizontal" method="post">
+			<form id="theme_settings" onsubmit="javascript: SaveOptions(this);" class="form-horizontal" method="post">
 			
 			<?php
 				global $theme_options;

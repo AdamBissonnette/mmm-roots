@@ -1,56 +1,5 @@
 <?php
 
-function section_block ( $atts, $content="" ) {
-	extract( shortcode_atts( array(
-	      'color' => '',
-	      'title' => '',
-	      'tagline' => '',
-	      'postid' => '',
-	      'linktext' => 'Read More'
-     ), $atts ) );
-     
-     $titleSlug = str_replace(" ", "-", strtolower($title));
-     
-     $taglineOutput = "";
-     if ($tagline != '') {
-	     $taglineOutput = sprintf(" <small>%s</small>", $tagline);
-     }
-     
-     $sectionColor = "";
-     if ($color != '') {
-	     $sectionColor = sprintf(" section-color-%s", $color);
-     }
-     
-     $postContent = "";
-
-     if ($postid != '')
-     {
-     	$postContent .= ' ' . getFormattedPostContent($postid, $linktext);
-     }
-     
-     
-     $output = "</div></div></div>"; //break out of the current span
-     $output .= '<section class="section-content' . $sectionColor . '" id="section-' . $titleSlug . '">
-					<div class="container">
-					  <h2 class="section-title">' .
-						$title .
-						$taglineOutput .
-					  '</h2>
-					  <div class="row block-content"><div class="col-lg-12">' .
-						do_shortcode($content) . $postContent .
-					  '</div>
-					</div></div>
-				</section>';
-	 $output .= '<div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          ';
-     
-     return $output;
-}
-
-add_shortcode( 'section_block', 'section_block' );
-
 function getFormattedPostContent($postid, $linktext)
 {
 	global $MMM_Roots;
