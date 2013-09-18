@@ -84,23 +84,6 @@ function video($atts, $content="")
 
 add_shortcode( 'video', 'video' );
 
-
-function mm_fact_me() {
-	global $MMM_Roots;
-	$facts = $MMM_Roots->get_setting('mm_facts');
-	$facts = explode("\n", $facts);
-	return wptexturize( $facts[ mt_rand( 0, count( $facts ) - 1 ) ] );
-}
-
-function MMFact($atts)
-{
-	$chosen = mm_fact_me();
-	return '"' . stripcslashes($chosen) . '"';
-}
-
-add_shortcode("MMFact", "MMFact");
-
-
 function BusinessInfo()
 {
 	ob_start();
@@ -254,7 +237,7 @@ function ListReviews($atts)
 
 	global $MMM_Roots;
 
-	$args = array('post_type' => 'review', 'orderby' => $orderby, 'numberposts' => $numberposts);
+	$args = array('post_type' => 'review',	 'orderby' => $orderby, 'numberposts' => $numberposts);
 	$reviews = get_posts($args);
 	$cssClass = "";
 
