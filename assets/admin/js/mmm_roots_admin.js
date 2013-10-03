@@ -1,4 +1,6 @@
 var activeUpload = null;
+var storeSendToEditor = null;
+var newSendToEditor = null;
 
 function SaveOptions(form)
 {
@@ -23,18 +25,22 @@ function FinalizeOptions(data)
 
 function SetupUploadControls()
 {
+	storeSendToEditor = window.send_to_editor;
+
+	newSendToEditor = function(html) {
+	 imgurl = jQuery('img',html).attr('src');
+	 jQuery(activeUpload).val(imgurl);
+	 tb_remove();
+	 window.send_to_editor = storeSendToEditor;
+	}
+
 	jQuery('.image_uploader a').click(function(event) {
+		window.send_to_editor = newSendToEditor;
 		activeUpload = jQuery(event.target).prev();
 
 		tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
 		return false;
 	});
-		 
-	window.send_to_editor = function(html) {
-	 imgurl = jQuery('img',html).attr('src');
-	 jQuery(activeUpload).val(imgurl);
-	 tb_remove();
-	}
 }
 
 function SetupSelects()
