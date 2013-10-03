@@ -183,3 +183,6 @@ border:1px solid #ccc;border-bottom-color:#bbb; border-radius:15px;-webkit-box-s
 .select2-container {width: 200px;}
 
 .mmm-upload {cursor: pointer;}
+
+#menu-posts-page-section .wp-menu-image {padding-top: 6px; height: 15px !important;}
+#menu-posts-page-section .wp-menu-image:after {font-family: FontAwesome; font-size: 1.2em; margin-left:5px; color: grey; content: "";}
