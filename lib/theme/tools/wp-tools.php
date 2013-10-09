@@ -127,14 +127,16 @@ function createCheckbox($label, $value, $options = null)
 function createSelect($label, $selectedKey, $options)
 {
 	extract( merge_options(
-		array("class" => "", "placeholder" => "", "note" => "", "data" => array(), "isMultiple" => false, "addBlank" => false), $options)
+		array("class" => "", "placeholder" => "", "note" => "", "data" => array(), "isMultiple" => false, "addBlank" => false, "updateRegion" => false), $options)
 	);
 
 	$output = "No Data Available";
+	$linkTemplate = '<a target="blank" href="post.php?post=%s&action=edit">%s</a> ';
 
 	if (count($data) > 0)
 	{
 		$selectedKeys = array();
+		$links = "";
 	
 		if ($selectedKey != "")
 		{
@@ -160,6 +162,7 @@ function createSelect($label, $selectedKey, $options)
 
 		foreach ($selectedKeys as $key) {
 				$output .= createSelectOption($key, $data[$key], true);
+				$links .= sprintf($linkTemplate, $key, $data[$key]);
 				unset($data[$key]);
 		}
 
@@ -170,9 +173,13 @@ function createSelect($label, $selectedKey, $options)
 		
 		$output .= '</select>';
 
+		if ($updateRegion == true) {
+			$output .= sprintf('<div class="mmm-update-region"><label class="control-label"><i class="icon-level-up icon-rotate-90"></i> Direct Links</label><div class="controls"><div id="%s-update" class="mmm-update-content">%s</div></div></div>', $label, $links);
+		}
+
 		if ($note != "") {
 			$output .= sprintf('<p class="help-block">%s</p>', $note);
-		}
+		}		
 	}
 
 	return $output;

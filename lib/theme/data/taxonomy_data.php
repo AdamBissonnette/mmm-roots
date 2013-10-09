@@ -34,7 +34,7 @@
 								array('id' => 'sections',
 									'label' => 'Sections',
 									'type' => 'select',
-									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true))
+									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
 							)
 						)
 					)
@@ -64,7 +64,7 @@
 								array('id' => 'sections',
 									'label' => 'Sections',
 									'type' => 'select',
-									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true))
+									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
 							)
 						)
 					)

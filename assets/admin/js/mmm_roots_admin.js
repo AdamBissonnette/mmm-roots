@@ -46,36 +46,59 @@ function SetupUploadControls()
 function SetupSelects()
 {
 	jQuery(".mmm-select").select2();
-	jQuery(".mmm-select-multi").select2Sortable();
+	jQuery(".mmm-select-multi").select2Sortable(
+		{bindOrder: 'sortableStop'}
+    );
 }
 
 
 function SetupSaveEvents()
 {
-	jQuery(document.forms).bind("submit", function() {
-		UpdateTextFieldFromSelect();
-	});
+	UpdateTextFieldFromSelect();
 }
 
 function UpdateTextFieldFromSelect()
 {
+	//@TODO This function and control should be updated to remove the extra text input now that the order is bound on sortableStop
 	var selects = jQuery('.mmm-select-multi');
 
-    jQuery.each(selects, function() {
-    	var curSelect = jQuery(this);
+	selects.on("change", function(e) {
 
- 		var curTextID = curSelect.prop("id").replace('mmm-select-','');;
+		var curSelect = jQuery(e.currentTarget);
+
+		var curTextID = curSelect.prop("id").replace('mmm-select-','');;
     	var curText = jQuery('#' + curTextID);
 
-    	var selectValue = curSelect.select2SortableOrder().val();
+    	var selectValue = curSelect.val();
+
+		var curUpdateRegionID = curTextID + "-update";
+		var curUpdateRegion = jQuery('#' + curUpdateRegionID);
+		curUpdateRegion.html("&nbsp");
 
     	if (selectValue != null)
     	{
+    		//Update Edit Region
+			var length = selectValue.length;
+			var elems = "";
+
+			for (var i = 0; i < length; i++) {
+				var label = curSelect.find('option[value="' + selectValue[i] + '"]');
+				var temp = "";
+				temp = '<a target="blank" href="post.php?post=' + label.val() + '&amp;action=edit">' + label.html() + '</a> ';
+				var elems = elems + temp;
+			}
+
+			curUpdateRegion.html(elems);
+
     		var joinedSelectValue = selectValue.join(",");
     	}
     	
 		curText.val(joinedSelectValue);
-    });
+
+		
+
+		//console.log(curText.val());
+	});
 }
 
 
