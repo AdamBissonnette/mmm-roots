@@ -73,17 +73,14 @@
 	margin: 10px 0 0;
 }
 
-.mmm_postmeta_wrapper .input input[type="text"], .mmm_postmeta_wrapper .input textarea {
-	width: 390px;
-	padding: 5px;
-	font-size: 12px;
-	font-family: arial;
-	margin-right: 10px;
+.mmm_postmeta_wrapper input[type="text"], .mmm_postmeta_wrapper textarea {
+	border-color: #aaa;
 }
 
 .mmm_postmeta_wrapper input[type="text"]
 {
 	margin: 2px !important;
+	width: 200px;
 }
 
 .mmm_postmeta_wrapper .input .info {
@@ -114,12 +111,12 @@
 }
 
 .mmm_postmeta_wrapper input.small {
-	width: 90px !important;
+	width: 100px !important;
 	text-align: right;
 }
 
 .mmm_postmeta_wrapper input.medium {
-	width: 180px !important;
+	width: 200px !important;
 	color: #222 !important;
 }
 
@@ -188,4 +185,4 @@ border:1px solid #ccc;border-bottom-color:#bbb; border-radius:15px;-webkit-box-s
 #menu-posts-page-section .wp-menu-image:after {font-family: FontAwesome; font-size: 1.2em; margin-left:5px; color: grey; content: "";}
 .mmm-update-region {margin: 15px 0 0 20px;}
 .mmm-update-region label {width: 180px;}
-.mmm-update-content {margin: 0 20px 0 180px; border: 1px solid #dfdfdf; padding: 5px; background: #fff; width: 188px;}
+.mmm-update-content {margin: 0 20px 0 180px; border: 1px solid #aaa; border-radius: 4px; padding: 5px; background: #fff; width: 188px;}
