@@ -55,6 +55,28 @@ function SetupSelects()
 function SetupSaveEvents()
 {
 	UpdateTextFieldFromSelect();
+
+	jQuery(document.forms).bind("submit", function() {
+		BindTextUpdateOnSubmit();
+	});
+}
+
+function BindTextUpdateOnSubmit()
+{
+	var selects = jQuery('.mmm-select-multi');
+
+	jQuery.each(selects, function() {
+		var curSelect = jQuery(this);
+
+		var curTextID = curSelect.prop("id").replace('mmm-select-','');;
+    	var curText = jQuery('#' + curTextID);
+
+    	var selectValue = curSelect.val();
+
+   		var joinedSelectValue = selectValue.join(",");
+    	
+		curText.val(joinedSelectValue);
+	});
 }
 
 function UpdateTextFieldFromSelect()
@@ -75,6 +97,8 @@ function UpdateTextFieldFromSelect()
 		var curUpdateRegion = jQuery('#' + curUpdateRegionID);
 		curUpdateRegion.html("&nbsp");
 
+		var joinedSelectValue = "";
+
     	if (selectValue != null)
     	{
     		//Update Edit Region
@@ -90,14 +114,10 @@ function UpdateTextFieldFromSelect()
 
 			curUpdateRegion.html(elems);
 
-    		var joinedSelectValue = selectValue.join(",");
+    		joinedSelectValue = selectValue.join(",");
     	}
     	
 		curText.val(joinedSelectValue);
-
-		
-
-		//console.log(curText.val());
 	});
 }
 

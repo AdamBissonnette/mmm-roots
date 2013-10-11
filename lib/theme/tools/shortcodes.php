@@ -74,9 +74,9 @@ function video($atts, $content="")
 
 	$output = "";
 	$videoContainerFormat = '<div class="fitvids">%s</div>';
-	$videoEmbedFormat = '<iframe src="http://www.youtube.com/embed/%s" frameborder="0" allowfullscreen></iframe>';
+	$videoEmbedFormat = '<iframe src="http://www.youtube.com/embed/%s" height="%s" frameborder="0" allowfullscreen></iframe>';
 
-	$embedOutput = sprintf($videoEmbedFormat, $id);
+	$embedOutput = sprintf($videoEmbedFormat, $id, $y);
 	$output = sprintf($videoContainerFormat, $embedOutput);
 
 	return $output;
@@ -153,6 +153,8 @@ function PricingItem($atts, $content='')
 
 
 add_shortcode("PricingItem", "PricingItem");
+
+//[ButtonLink url="" class="" title="" icon="" /]
 
 function ButtonLink($atts)
 {
