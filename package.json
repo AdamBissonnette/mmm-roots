@@ -1,0 +1,25 @@
+{
+  "name": "mmm-roots",
+  "version": "1.0.0",
+  "description": "MMM Child",
+  "private": true,
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-compress": "~0.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MManifesto/mmm-roots.git"
+  },
+  "author": [
+    {
+      "name": "Media Manifesto Inc"
+    }
+  ],
+  "readmeFilename": "README.md"
+}
