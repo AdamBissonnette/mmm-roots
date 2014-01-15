@@ -7540,7 +7540,7 @@ html[xmlns] .slides {
   content: '\f001';
 }
 .flex-direction-nav a.flex-next:before {
-  content: '\f002';
+  content: '\f105';
 }
 /* Pause/Play */
 .flex-pauseplay a {
