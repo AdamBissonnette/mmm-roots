@@ -106,6 +106,7 @@ class MMM_Roots
         wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
         wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
         wp_enqueue_style('select2', get_template_directory_uri() . '/assets/admin/css/select2.css', false, null);
+        wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/admin/css/font-awesome.css', false, null);
 
         wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
 
