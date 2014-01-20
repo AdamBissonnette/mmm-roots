@@ -10,6 +10,8 @@
 		rows - text area only rows attribute
 	*/
 
+	$jumbotronTemplates = array(1 => "Text on Right", 2 => "Text on Left");
+
 	$taxonomies = array(
 		array('slug' => 'post',
 			  'options' => array(
@@ -19,7 +21,7 @@
 					'sections' => array(
 						array(
 							'name' => 'General Options',
-							'size' => '6',
+							'size' => '12',
 							'fields' => array(
 								array('id' => 'tagline',
 									'label' => 'Tagline',
@@ -36,9 +38,26 @@
 									'type' => 'select',
 									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
 							)
+						),
+						array('name' => 'Jumbotron Options',
+							'size' => '12',
+							'fields' => array(
+								array('id' => 'readmoretext',
+									'label' => 'Read More Text',
+									'type' => 'text',
+									'options' => array("note" => 'Leaving this blank will result in the default value of "Read More"')),
+								array('id' => 'blurb',
+									'label' => 'Blurb',
+									'type' => 'textarea',
+									'options' => array("note" => 'Leaving this blank will result in the first 25 characters of the post content being used.')),
+								array('id' => 'jumbotron-template',
+									'label' => 'Jumbotron Templates',
+									'type' => 'select',
+									'options' => array("data" => $jumbotronTemplates))
+							)
 						)
 					)
-				)
+				),
 			)
 		),
 		array('slug' => 'page',

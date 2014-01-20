@@ -20,14 +20,14 @@ foreach ($posts as $jumbotron)
 
 	$blurb = $MMM_Roots->get_post_meta($jumbotron->ID, "blurb", true);
 		
-	if ($blurb == null)
+	if ($blurb == "")
 	{
 		$blurb = wp_trim_words($jumbotron->post_content, 25, "...");
 	}
 
 	$readmoretext = $MMM_Roots->get_post_meta($jumbotron->ID, "readmoretext", true);
 
-	if ($readmoretext == null)
+	if ($readmoretext == "")
 	{
 		$readmoretext = "Read More";
 	}
@@ -47,6 +47,40 @@ foreach ($posts as $jumbotron)
 			$image = $jumbotronDefault;
 		}
 	}
+
+	$template = $MMM_Roots->get_post_meta($jumbotron->ID, "jumbotron-template", true);
+
+	if ($template == 2)
+	{
+		?>
+<li>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5 col-md-5 offset1">
+				<div class="slogan">
+					<h1><?php echo $jumbotron->post_title; ?></h1>
+					<p class="lead"><?php
+					echo $blurb;
+					?></p>
+					<p>
+					<a class="btn btn-large btn-primary" href="<?php echo get_permalink($jumbotron); ?>"><?php echo $readmoretext; ?></a>
+					</p>
+				</div>
+			</div>
+			<div class="col-lg-5 col-md-5 offset1 jumbotron-image">
+				<?php if ($image) { ?>
+				  	<img src="<?php echo $image; ?>" />
+				  <?php } else {  ?>
+					<i class="icon-<?php echo $icon; ?>"></i>
+				  <?php } ?>
+			</div>
+		</div>
+	</div>
+</li>	
+		<?php
+	}
+	else
+	{
 
 ?>
 
@@ -77,7 +111,7 @@ foreach ($posts as $jumbotron)
       	
       
 
-<?php } ?>
+<?php } } ?>
 
 </ul>
     </div>
