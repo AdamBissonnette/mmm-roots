@@ -13,7 +13,7 @@ global $MMM_Roots;
 <div class="wrap container" role="document">
 <div class="content row">
   <div class="main col-lg-12" role="main">
-	<?php the_content(); ?>
+	<?php wp_reset_postdata(); the_content(); ?>
   </div><!-- /.main -->
 </div><!-- /.content -->
 </div><!-- /.wrap -->
