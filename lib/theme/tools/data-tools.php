@@ -141,7 +141,7 @@ function OutputTabContent($id, $sections, $isFirst, $values)
 
 function OutputSection($name, $size, $fields, $values)
 {
-	$sectionTemplate = '<div class="col-sm-%s"><legend>%s</legend>';
+	$sectionTemplate = '<div class="col-sm-%s meta-section"><legend>%s</legend>';
 	echo sprintf($sectionTemplate, $size, $name);
 
 	foreach ($fields as $field)
