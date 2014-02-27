@@ -129,9 +129,16 @@ function OutputTabContent($id, $sections, $isFirst, $values)
 
 	echo sprintf($tabContentTemplate, $class, $id);
 	
-	foreach ($sections as $section)
+	if ($sections != null)
 	{
-		OutputSection($section["name"], $section["size"], $section["fields"], $values);
+		foreach ($sections as $section)
+		{
+			OutputSection($section["name"], $section["size"], $section["fields"], $values);
+		}
+	}
+	else
+	{
+		echo "Missing section content for " . $class . " - " . $id;
 	}
 
 	echo "</div>";

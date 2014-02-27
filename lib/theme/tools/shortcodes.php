@@ -302,6 +302,31 @@ function ListReviews($atts)
 
 add_shortcode("ListReviews", "ListReviews");
 
+function ListTaxTerms($atts)
+{
+	extract( shortcode_atts( array(
+		      'taxonomy' => '',
+		      'template' => '<li><a href="%1$s" title="%2$s">%2$s</a></li>',
+		      'orderby' => 'name',
+		      'order' => 'asc'
+	     ), $atts ) );
+	$output = '';
+
+	if (isset($taxonomy))
+	{
+		$tax_terms = get_terms($taxonomy, array('orderby'=>$orderby, 'order'=>$order));
+
+		foreach ($tax_terms as $tax_term) {
+			$output .= sprintf($template, get_term_link($tax_term, $taxonomy), $tax_term->name);
+		}
+	}
+
+	return $output;
+}
+
+add_shortcode( 'ListTaxTerms', 'ListTaxTerms' );
+
+
 //Enable Shortcodes in widgets
 add_filter('widget_text', 'do_shortcode');
 
