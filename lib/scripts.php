@@ -10,7 +10,8 @@ function roots_scripts() {
   wp_enqueue_style('style', get_template_directory_uri() . '/style.css', false, null);
 
   //Formatting to include google fonts
-  //wp_enqueue_style('quattrocento', 'http://fonts.googleapis.com/css?family=Quattrocento:400,700', false, null);
+  //wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=EB+Garamond|Quattrocento');
+  //wp_enqueue_style('googleFonts');
 
   // jQuery is loaded using the same method from HTML5 Boilerplate:
   // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
