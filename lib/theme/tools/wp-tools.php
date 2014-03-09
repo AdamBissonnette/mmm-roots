@@ -246,9 +246,9 @@ function getPostsSelectArray()
 	return getTaxonomySelectArray('post');
 }
 
-function getTaxonomySelectArray($taxonomy)
+function getTaxonomySelectArray($taxonomy, $posts_per_page = -1)
 {
-	$args = array('post_type' => $taxonomy);
+	$args = array('post_type' => $taxonomy, 'posts_per_page' => $posts_per_page);
 	$posts = get_posts($args);
 	
 	$postArray = array();
