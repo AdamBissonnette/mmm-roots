@@ -48,7 +48,7 @@ function span($atts, $content="")
      ), $atts ) );
 
 	$output = '';
-	$spanFormat = '<div class="col-lg-%s">%s</div>';
+	$spanFormat = '<div class="col-sm-%s">%s</div>';
 	
 	if ($cssClass != '')
 	{
