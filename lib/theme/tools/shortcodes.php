@@ -59,7 +59,7 @@ function column($atts, $content="")
 	
 	return $output;
 }
-add_shortcode( 'column', 'spcolumnan' );
+add_shortcode( 'column', 'column' );
 
 function video($atts, $content="")
 {
