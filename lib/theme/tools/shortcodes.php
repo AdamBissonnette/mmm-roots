@@ -228,93 +228,68 @@ function IconBlock($atts, $content='')
 
 add_shortcode("IconBlock", "IconBlock");
 
-function ListReviews($atts)
+function ListTaxonomy($atts, $content=null)
 {
 	extract(shortcode_atts(array(
-		'numberposts' => '2',
-		'orderby' => 'rand',
-		'wrapsize' => '',
-		'class' => ''
+		'taxonomy' => '',
+		'numberposts' => '-1',
+		'orderby' => 'date',
+		'order' => 'desc'
 	), $atts) );
-
-	global $MMM_Roots;
-
-	$args = array('post_type' => 'review',	 'orderby' => $orderby, 'numberposts' => $numberposts);
-	$reviews = get_posts($args);
-	$cssClass = "";
 
 	$output = "";
 
-	$reviewTemplate = '<blockquote>
-	  <p>
-	  %s
-	  </p>
-	  %s
-    </blockquote>';
-
-    $captionTemplate = '<span class="test-caption"> <strong>%s </strong></span>';
-    $captionTemplateUrl = '<span class="test-caption"> <strong><a href="%s">%s</a> </strong></span>';;
-
-    if ($wrapsize != '')
+	if (isset($taxonomy))
 	{
-		$cssClass = $wrapsize;
+		$args = array('post_type' => $taxonomy, 'orderby' => $orderby, 'order' => $order, 'numberposts' => $numberposts);
+		$posts = get_posts($args);
+		$template = '<li><img src="%3$s" /><br /><a href="%1$s" title="%2$s">%2$s</a></li>'; //Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4
+
+		if ($content != null)
+		{
+			$template = $content;
+		}
+
+		$imageUrl = "";
+
+		foreach ($posts as $post)
+		{
+			if (has_post_thumbnail($post->ID))
+			{
+				$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID), 'thumbnail');
+				$imageUrl = $thumb[0];
+			}
+
+			$output .= sprintf($template, get_permalink($post), $post->post_title, $imageUrl, do_shortcode($post->content));
+		}
 	}
-
-    if ($class != '')
-	{
-		$cssClass .= ' ' . $class;
-	}
-
-    $wrapTemplate = '<div class="col-lg-%s">%s</div>';
-
-	foreach ($reviews as $post):
-		$ReviewerName = $MMM_Roots->get_post_meta($post->ID, "name", true);
-		$ReviewContent = $MMM_Roots->get_post_meta($post->ID, "content", true);
-		$ReviewUrl = $MMM_Roots->get_post_meta($post->ID, "url", true);
-
-		$caption = "";
-
-		if ($ReviewUrl != '')
-		{
-			$caption = sprintf($captionTemplateUrl, $ReviewUrl,  $ReviewerName);
-		}
-		else
-		{
-			$caption = sprintf($captionTemplate, $ReviewerName);
-		}
-
-		
-		$review = sprintf($reviewTemplate, $ReviewContent, $caption);
-
-		if ($wrapsize != '')
-		{
-			$output .= sprintf($wrapTemplate, $cssClass, $review);
-		}
-		else
-		{
-			$output .= $review;
-		}
-
-	endforeach;
 
 	return $output;
 }
 
-add_shortcode("ListReviews", "ListReviews");
+add_shortcode("ListTaxonomy", "ListTaxonomy");
 
-function ListTaxTerms($atts)
+function ListTaxTerms($atts, $content = null)
 {
 	extract( shortcode_atts( array(
 		      'taxonomy' => '',
-		      'template' => '<li><a href="%1$s" title="%2$s">%2$s</a></li>',
+		      'template' => '',
 		      'orderby' => 'name',
-		      'order' => 'asc'
+		      'order' => 'asc',
+		      'numberposts' => '-1'
 	     ), $atts ) );
 	$output = '';
 
+	$template = '<li><a href="%1$s" title="%2$s">%2$s</a></li>';
+
+	if ($content != null)
+	{
+		$template = $content;
+	}
+
 	if (isset($taxonomy))
 	{
-		$tax_terms = get_terms($taxonomy, array('orderby'=>$orderby, 'order'=>$order));
+		$tax_terms = get_terms($taxonomy, array('orderby'=>$orderby, 'order'=>$order, 'number'=>$numberposts));
 
 		foreach ($tax_terms as $tax_term) {
 			$output .= sprintf($template, get_term_link($tax_term, $taxonomy), $tax_term->name);
