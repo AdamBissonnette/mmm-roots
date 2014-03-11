@@ -40,7 +40,7 @@ function row($atts, $content="")
 }
 add_shortcode( 'row', 'row' );
 
-function span($atts, $content="")
+function column($atts, $content="")
 {
 	extract( shortcode_atts( array(
 	      'size' => '3',
@@ -59,7 +59,7 @@ function span($atts, $content="")
 	
 	return $output;
 }
-add_shortcode( 'span', 'span' );
+add_shortcode( 'column', 'spcolumnan' );
 
 function video($atts, $content="")
 {
@@ -83,17 +83,6 @@ function video($atts, $content="")
 }
 
 add_shortcode( 'video', 'video' );
-
-function BusinessInfo()
-{
-	ob_start();
-	get_template_part('templates/contact/business', 'info');
-	$output = ob_get_contents();  
-    ob_end_clean();  
-    return $output;  
-}
-
-add_shortcode("BusinessInfo", "BusinessInfo");
 
 function PricingBox($atts, $content = null)
 {
@@ -140,7 +129,7 @@ function PricingBox($atts, $content = null)
 
 }
 
-add_shortcode("PricingBox", "PricingBox");
+//add_shortcode("PricingBox", "PricingBox");
 
 function PricingItem($atts, $content='')
 {
@@ -152,7 +141,7 @@ function PricingItem($atts, $content='')
 }
 
 
-add_shortcode("PricingItem", "PricingItem");
+//add_shortcode("PricingItem", "PricingItem");
 
 //[ButtonLink url="" class="" title="" icon="" /]
 
@@ -226,7 +215,7 @@ function IconBlock($atts, $content='')
   	return $output;
 }
 
-add_shortcode("IconBlock", "IconBlock");
+//add_shortcode("IconBlock", "IconBlock");
 
 function ListTaxonomy($atts, $content=null)
 {
