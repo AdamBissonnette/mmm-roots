@@ -223,7 +223,8 @@ function ListTaxonomy($atts, $content=null)
 		'taxonomy' => '',
 		'numberposts' => '-1',
 		'orderby' => 'date',
-		'order' => 'desc'
+		'order' => 'desc',
+		'class' => ''
 	), $atts) );
 
 	$output = "";
@@ -232,7 +233,7 @@ function ListTaxonomy($atts, $content=null)
 	{
 		$args = array('post_type' => $taxonomy, 'orderby' => $orderby, 'order' => $order, 'numberposts' => $numberposts);
 		$posts = get_posts($args);
-		$template = '<li><img src="%3$s" /><br /><a href="%1$s" title="%2$s">%2$s</a></li>'; //Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4
+		$template = '<li><a title="%2$s" href="%1$s"><img alt="" src="%3$s" /><span>%2$s</span></a></li>'; //Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4
 
 		if ($content != null)
 		{
@@ -240,7 +241,12 @@ function ListTaxonomy($atts, $content=null)
 		}
 
 		$imageUrl = "";
-
+		
+		if ($class != '')
+		{
+			$output .= sprintf('<ul class="%s">', $class);
+		}
+		
 		foreach ($posts as $post)
 		{
 			if (has_post_thumbnail($post->ID))
@@ -250,6 +256,11 @@ function ListTaxonomy($atts, $content=null)
 			}
 
 			$output .= sprintf($template, get_permalink($post), $post->post_title, $imageUrl, do_shortcode($post->content));
+		}
+
+		if ($class != '')
+		{
+			$output .= '</ul>';
 		}
 	}
 
@@ -261,12 +272,13 @@ add_shortcode("ListTaxonomy", "ListTaxonomy");
 function ListTaxTerms($atts, $content = null)
 {
 	extract( shortcode_atts( array(
-		      'taxonomy' => '',
-		      'template' => '',
-		      'orderby' => 'name',
-		      'order' => 'asc',
-		      'numberposts' => ''
-	     ), $atts ) );
+			'taxonomy' => '',
+			'template' => '',
+			'orderby' => 'name',
+			'order' => 'asc',
+			'numberposts' => '',
+			'class' => ''
+			), $atts ) );
 	$output = '';
 
 	$template = '<li><a href="%1$s" title="%2$s">%2$s</a></li>';
@@ -278,10 +290,20 @@ function ListTaxTerms($atts, $content = null)
 
 	if (isset($taxonomy))
 	{
+		if ($class != '')
+		{
+			$output .= sprintf('<ul class="%s">', $class);
+		}
+
 		$tax_terms = get_terms($taxonomy, array('orderby'=>$orderby, 'order'=>$order, 'number'=>$numberposts));
 
 		foreach ($tax_terms as $tax_term) {
 			$output .= sprintf($template, get_term_link($tax_term, $taxonomy), $tax_term->name);
+		}
+
+		if ($class != '')
+		{
+			$output .= '</ul>';
 		}
 	}
 
