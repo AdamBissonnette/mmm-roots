@@ -265,7 +265,7 @@ function ListTaxTerms($atts, $content = null)
 		      'template' => '',
 		      'orderby' => 'name',
 		      'order' => 'asc',
-		      'numberposts' => '-1'
+		      'numberposts' => ''
 	     ), $atts ) );
 	$output = '';
 
