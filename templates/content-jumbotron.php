@@ -56,7 +56,7 @@ foreach ($posts as $jumbotron)
 <li>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-5 col-md-5 offset1">
+			<div class="col-lg-5 col-md-5 col-md-offset-1">
 				<div class="slogan">
 					<h1><?php echo $jumbotron->post_title; ?></h1>
 					<p class="lead"><?php
@@ -67,7 +67,7 @@ foreach ($posts as $jumbotron)
 					</p>
 				</div>
 			</div>
-			<div class="col-lg-5 col-md-5 offset1 jumbotron-image">
+			<div class="col-lg-5 col-md-5 col-md-offset-1 jumbotron-image">
 				<?php if ($image) { ?>
 				  	<img src="<?php echo $image; ?>" />
 				  <?php } else {  ?>
@@ -87,14 +87,14 @@ foreach ($posts as $jumbotron)
 <li>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-5 col-md-5 offset1 jumbotron-image">
+			<div class="col-lg-5 col-md-5 col-md-offset-1 jumbotron-image">
 				<?php if ($image) { ?>
 				  	<img src="<?php echo $image; ?>" />
 				  <?php } else {  ?>
 					<i class="icon-<?php echo $icon; ?>"></i>
 				  <?php } ?>
 			</div>
-			<div class="col-lg-5 col-md-5 offset1">
+			<div class="col-lg-5 col-md-5 col-md-offset-1">
 				<div class="slogan">
 					<h1><?php echo $jumbotron->post_title; ?></h1>
 					<p class="lead"><?php
