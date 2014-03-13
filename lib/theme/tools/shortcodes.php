@@ -224,7 +224,9 @@ function ListTaxonomy($atts, $content=null)
 		'numberposts' => '-1',
 		'orderby' => 'date',
 		'order' => 'desc',
-		'class' => ''
+		'class' => '',
+		'term_taxonomy' => '',
+		'term_template' => '<a title="%2$s" href="%1$s">%2$s</a>'
 	), $atts) );
 
 	$output = "";
@@ -233,7 +235,9 @@ function ListTaxonomy($atts, $content=null)
 	{
 		$args = array('post_type' => $taxonomy, 'orderby' => $orderby, 'order' => $order, 'numberposts' => $numberposts);
 		$posts = get_posts($args);
-		$template = '<li><a title="%2$s" href="%1$s"><img alt="" src="%3$s" /><span>%2$s</span></a></li>'; //Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4
+		
+		//Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4, Taxonomy output
+		$template = '<li><a title="%2$s" href="%1$s"><img alt="" src="%3$s" /><span class="taxonomy-title">%2$s</span></a><span class="taxonomy-terms">%5$s</span></li>';
 
 		if ($content != null)
 		{
@@ -246,16 +250,46 @@ function ListTaxonomy($atts, $content=null)
 		{
 			$output .= sprintf('<ul class="%s">', $class);
 		}
-		
+
 		foreach ($posts as $post)
 		{
+			$taxonomyTermsOutput = '';
+
 			if (has_post_thumbnail($post->ID))
 			{
 				$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID), 'thumbnail');
 				$imageUrl = $thumb[0];
 			}
 
-			$output .= sprintf($template, get_permalink($post), $post->post_title, $imageUrl, do_shortcode($post->content));
+			if ($term_taxonomy != '')
+			{
+				$tax_terms = wp_get_post_terms( $post->ID, $term_taxonomy);
+
+				for ($i = 0; $i < count($tax_terms); $i++ )
+				{
+					$tax_term = $tax_terms[$i];
+
+					if ($i == (count($tax_terms) - 2)) //Second Last Term
+					{
+						$taxonomyTermsOutput .= sprintf($term_template . ' and ', get_term_link($tax_term, $term_taxonomy),	$tax_term->name);
+					}
+					else if ($i == (count($tax_terms) - 1)) //Last Term
+					{
+						$taxonomyTermsOutput .= sprintf($term_template, get_term_link($tax_term, $term_taxonomy), $tax_term->name);
+					}
+					else
+					{
+						$taxonomyTermsOutput .= sprintf($term_template . ', ', get_term_link($tax_term, $term_taxonomy), $tax_term->name);
+					}
+				}
+			}
+
+			$output .= sprintf($template,
+							get_permalink($post),
+							$post->post_title,
+							$imageUrl,
+							do_shortcode($post->content),
+							$taxonomyTermsOutput);
 		}
 
 		if ($class != '')
@@ -273,12 +307,13 @@ function ListTaxTerms($atts, $content = null)
 {
 	extract( shortcode_atts( array(
 			'taxonomy' => '',
-			'template' => '',
 			'orderby' => 'name',
 			'order' => 'asc',
 			'numberposts' => '',
-			'class' => ''
+			'class' => '',
+			'post_id' => ''
 			), $atts ) );
+
 	$output = '';
 
 	$template = '<li><a href="%1$s" title="%2$s">%2$s</a></li>';
