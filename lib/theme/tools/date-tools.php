@@ -1,11 +1,14 @@
 <?php /* Date Functions */
 	if (!function_exists('IsWithinRange')) {
-		function IsWithinRange($StartDate, $EndDate)
+		function IsWithinRange($StartDate, $EndDate, $curdate = null)
 		{
 			$active = true;
-			
-			$curdate = date('Y-m-d H:i');
 	
+			if ($curdate == null)
+			{
+				$curdate = date('Y-m-d H:i');
+			}
+
 			if ($StartDate >= $curdate)
 			{
 				$active = false;
