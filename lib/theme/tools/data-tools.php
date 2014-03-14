@@ -194,4 +194,61 @@ function MMRootsField($id, $label, $type, $options=null, $values=null)
 
 	//return $formField;
 }
+
+
+/*
+Search through the child taxonomies for matching slugs in the parent
+Merge the Parent and child sections together
+Output the merged list*/
+
+function MergeChildTaxonomies($parentTaxonomies, $childTaxonomies)
+{
+	foreach ($childTaxonomies as $childTaxonomy) {
+		for ($i = 0; $i < count($parentTaxonomies); $i++)
+		{
+			if ($childTaxonomy["slug"] == $parentTaxonomies[$i]["slug"])
+			{
+					$parentTaxonomies[$i]["options"][0]["sections"] = array_merge($parentTaxonomies[$i]["options"][0]["sections"], $childTaxonomy["options"][0]["sections"]);
+
+				print_r($parentTaxonomy);
+			}
+		}
+	}
+
+	return $parentTaxonomies;
+}
+
+
+function OutputPostProperties($post, $content = "")
+{
+	$output = $content;
+
+	//Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4, slug = 5
+	//$variables = array('[url]', '[title]', '[image]', '[content]', '[slug]');
+
+	$variables = array('{url}' => get_permalink($post),
+					'{title}' => $post->post_title,
+					'{image}' => getPostThumbnailUrl($post),
+					'{content}' => do_shortcode($post->content),
+					'{slug}' => $post->post_name);
+
+	foreach ($variables as $key => $value) {
+		$output = str_replace($key, $value, $output);
+	}
+
+	return $output;
+}
+
+function getPostThumbnailUrl($post)
+{
+	$imageUrl = "";
+
+	if (has_post_thumbnail($post->ID))
+	{
+		$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID), 'thumbnail');
+		$imageUrl = $thumb[0];
+	}
+
+	return $imageUrl;
+}
 ?>
