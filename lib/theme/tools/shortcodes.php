@@ -274,12 +274,12 @@ function ListTaxonomy($atts, $content=null)
 				{
 					$tax_term = $tax_terms[$i];
 
-					$formattedTerms->array_push(sprintf($term_template, get_term_link($tax_term, $term_taxonomy), $tax_term->name));
+					array_push($formattedTerms, sprintf($term_template, get_term_link($tax_term, $term_taxonomy), $tax_term->name));
 				}
 
-				$formattedPostOutput = OutputPostProperties($post, $content);
+				$formattedPostOutput = OutputPostProperties($post, $template);
 
-				$output .= str_replace('{terms}', createCommaAndList($taxonomyTermsOutput), $formattedPostOutput);
+				$output .= str_replace('{terms}', createCommaAndList($formattedTerms), $formattedPostOutput);
 			}
 			else
 			{
