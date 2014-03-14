@@ -221,27 +221,36 @@ function ListTaxonomy($atts, $content=null)
 {
 	extract(shortcode_atts(array(
 		'taxonomy' => '',
-		'numberposts' => '-1',
+		'numberposts' => '-1', //default value for all posts
 		'orderby' => 'date',
 		'order' => 'desc',
 		'class' => '',
-		'term_taxonomy' => '',
-		'term_template' => '<a title="%2$s" href="%1$s">%2$s</a>'
+		'category' => '',
+		'term_taxonomy' => '', //term functions will be replaced when this shortcode plays nicely with ListTaxTerms
+		'term_template' => '<a title="%2$s" href="%1$s">%2$s</a>',
+		'wrap_template' => 'li'
 	), $atts) );
 
 	$output = "";
 
 	if (isset($taxonomy))
 	{
-		$args = array('post_type' => $taxonomy, 'orderby' => $orderby, 'order' => $order, 'numberposts' => $numberposts);
+		$args = array('post_type' => $taxonomy, 'orderby' => $orderby, 'order' => $order, 'numberposts' => $numberposts, 'category' => get_cat_ID($category));
+
 		$posts = get_posts($args);
-		
-		//Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4, Taxonomy output
-		$template = '<li><a title="%2$s" href="%1$s"><img alt="" src="%3$s" /><span class="taxonomy-title">%2$s</span></a><span class="taxonomy-terms">%5$s</span></li>';
+
+		$template = '<a id="{slug}" title="{title}" href="{url}"><img alt="{title}" src="{image}" /><span class="taxonomy-title">{title}</span></a><span class="taxonomy-terms">{terms}</span>';
 
 		if ($content != null)
 		{
 			$template = $content;
+		}
+
+		switch ($wrap_template)
+		{
+			case 'li':
+				$template = sprintf('<li>%s</li>', $template);
+			break;
 		}
 
 		$imageUrl = "";
@@ -255,41 +264,27 @@ function ListTaxonomy($atts, $content=null)
 		{
 			$taxonomyTermsOutput = '';
 
-			if (has_post_thumbnail($post->ID))
-			{
-				$thumb =  wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID), 'thumbnail');
-				$imageUrl = $thumb[0];
-			}
-
 			if ($term_taxonomy != '')
 			{
 				$tax_terms = wp_get_post_terms( $post->ID, $term_taxonomy);
+
+				$formattedTerms = array();
 
 				for ($i = 0; $i < count($tax_terms); $i++ )
 				{
 					$tax_term = $tax_terms[$i];
 
-					if ($i == (count($tax_terms) - 2)) //Second Last Term
-					{
-						$taxonomyTermsOutput .= sprintf($term_template . ' and ', get_term_link($tax_term, $term_taxonomy),	$tax_term->name);
-					}
-					else if ($i == (count($tax_terms) - 1)) //Last Term
-					{
-						$taxonomyTermsOutput .= sprintf($term_template, get_term_link($tax_term, $term_taxonomy), $tax_term->name);
-					}
-					else
-					{
-						$taxonomyTermsOutput .= sprintf($term_template . ', ', get_term_link($tax_term, $term_taxonomy), $tax_term->name);
-					}
+					$formattedTerms->array_push(sprintf($term_template, get_term_link($tax_term, $term_taxonomy), $tax_term->name));
 				}
-			}
 
-			$output .= sprintf($template,
-							get_permalink($post),
-							$post->post_title,
-							$imageUrl,
-							do_shortcode($post->content),
-							$taxonomyTermsOutput);
+				$formattedPostOutput = OutputPostProperties($post, $content);
+
+				$output .= str_replace('{terms}', createCommaAndList($taxonomyTermsOutput), $formattedPostOutput);
+			}
+			else
+			{
+				$output .= OutputPostProperties($post, $template);
+			}
 		}
 
 		if ($class != '')
@@ -303,13 +298,14 @@ function ListTaxonomy($atts, $content=null)
 
 add_shortcode("ListTaxonomy", "ListTaxonomy");
 
+//Rename to ListTaxonomyTerms
 function ListTaxTerms($atts, $content = null)
 {
 	extract( shortcode_atts( array(
 			'taxonomy' => '',
 			'orderby' => 'name',
 			'order' => 'asc',
-			'numberposts' => '',
+			'numberposts' => '', //default value for all posts
 			'class' => '',
 			'post_id' => ''
 			), $atts ) );
@@ -347,6 +343,29 @@ function ListTaxTerms($atts, $content = null)
 
 add_shortcode( 'ListTaxTerms', 'ListTaxTerms' );
 
+
+
+function AddSidebar($atts)
+{
+	extract( shortcode_atts( array(
+			'name' => '',
+			'template' => '<aside class="sidebar">%s</aside>'
+		), $atts));
+
+	$content = "";
+
+	if ($name != '')
+	{
+		ob_start(); //Since there isn't a nice way to get this content we have to use the output buffer
+		dynamic_sidebar($name);
+		$content = sprintf($template, ob_get_contents());
+		ob_end_clean();
+	}
+
+	return $content;
+}
+
+add_shortcode("AddSidebar", "AddSidebar");
 
 //Enable Shortcodes in widgets
 add_filter('widget_text', 'do_shortcode');
