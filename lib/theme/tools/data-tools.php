@@ -221,16 +221,17 @@ function MergeChildTaxonomies($parentTaxonomies, $childTaxonomies)
 
 function OutputPostProperties($post, $content = "")
 {
+	global $MMM_Roots;
+	global $MMM_Child_Roots;
+
+	$variables = $MMM_Roots->get_post_variables($post);
+
+	if (isset($MMM_Child_Roots))
+	{
+		$variables = array_merge($MMM_Child_Roots->get_post_variables($post), $variables);
+	}
+
 	$output = $content;
-
-	//Url = 1, Title = 2, FeaturedImageUrl = 3, Content = 4, slug = 5
-	//$variables = array('[url]', '[title]', '[image]', '[content]', '[slug]');
-
-	$variables = array('{url}' => get_permalink($post),
-					'{title}' => $post->post_title,
-					'{image}' => getPostThumbnailUrl($post),
-					'{content}' => do_shortcode($post->content),
-					'{slug}' => $post->post_name);
 
 	foreach ($variables as $key => $value) {
 		$output = str_replace($key, $value, $output);

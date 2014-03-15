@@ -13,9 +13,9 @@ class MMM_Roots
     var $_meta_key = 'mmm_roots_meta';
     //var $_setting_prefix = 'mm_roots_';
     var $_save_key = '';
-    var $_versionnum = 1.0;
+    var $_versionnum = 1.1;
 	var $menu_page;
-	
+
 	function MMM_Roots()
 	{
 		return $this->__construct();
@@ -302,6 +302,16 @@ class MMM_Roots
 		return $output;
 	}
 
+	function get_post_variables($post)
+    {
+        $post_variables = array('{url}' => get_permalink($post),
+					'{title}' => $post->post_title,
+					'{image}' => getPostThumbnailUrl($post),
+					'{content}' => do_shortcode($post->content),
+					'{slug}' => $post->post_name);
+
+        return $post_variables;
+    }
 }
 
 register_activation_hook(__FILE__,array('MMM_Roots', 'MMM_Roots_install'));
