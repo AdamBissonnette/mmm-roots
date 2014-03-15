@@ -44,15 +44,15 @@ function column($atts, $content="")
 {
 	extract( shortcode_atts( array(
 	      'size' => '3',
-	      'cssClass' => ''
+	      'class' => ''
      ), $atts ) );
 
 	$output = '';
 	$spanFormat = '<div class="col-sm-%s">%s</div>';
 	
-	if ($cssClass != '')
+	if ($class != '')
 	{
-		$size .= ' ' . $cssClass;
+		$size .= ' ' . $class;
 	}
 	
 	$output = sprintf($spanFormat, $size, do_shortcode($content));
@@ -345,7 +345,7 @@ add_shortcode( 'ListTaxTerms', 'ListTaxTerms' );
 
 
 
-function AddSidebar($atts)
+function Sidebar($atts)
 {
 	extract( shortcode_atts( array(
 			'name' => '',
@@ -365,7 +365,7 @@ function AddSidebar($atts)
 	return $content;
 }
 
-add_shortcode("AddSidebar", "AddSidebar");
+add_shortcode("Sidebar", "Sidebar");
 
 //Enable Shortcodes in widgets
 add_filter('widget_text', 'do_shortcode');
