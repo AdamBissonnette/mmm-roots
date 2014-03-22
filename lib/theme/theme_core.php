@@ -18,11 +18,6 @@ class MMM_Roots
 
 	function MMM_Roots()
 	{
-		return $this->__construct();
-	}
-	
-    function __construct()
-    {
         $this->_settings = get_option($this->_settings_key) ? get_option($this->_settings_key) : array();
 
         add_action( 'admin_menu', array(&$this, 'create_menu_link') );

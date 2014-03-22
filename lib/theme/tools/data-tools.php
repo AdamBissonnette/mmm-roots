@@ -208,9 +208,7 @@ function MergeChildTaxonomies($parentTaxonomies, $childTaxonomies)
 		{
 			if ($childTaxonomy["slug"] == $parentTaxonomies[$i]["slug"])
 			{
-					$parentTaxonomies[$i]["options"][0]["sections"] = array_merge($parentTaxonomies[$i]["options"][0]["sections"], $childTaxonomy["options"][0]["sections"]);
-
-				print_r($parentTaxonomy);
+				$parentTaxonomies[$i]["options"][0]["sections"] = array_merge($parentTaxonomies[$i]["options"][0]["sections"], $childTaxonomy["options"][0]["sections"]);
 			}
 		}
 	}
