@@ -296,7 +296,7 @@ function ListTaxonomy($atts, $content=null)
 		}
 	}
 
-	return $output;
+	return do_shortcode($output);
 }
 
 add_shortcode("ListTaxonomy", "ListTaxonomy");
