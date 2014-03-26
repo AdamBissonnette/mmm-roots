@@ -251,6 +251,9 @@ function ListTaxonomy($atts, $content=null)
 			case 'li':
 				$template = sprintf('<li>%s</li>', $template);
 			break;
+			default:
+				$template = sprintf('<%1$s>%2$s</%1$s>', $wrap_template, $template);
+			break;
 		}
 
 		$imageUrl = "";

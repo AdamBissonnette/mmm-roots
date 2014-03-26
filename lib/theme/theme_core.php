@@ -302,7 +302,7 @@ class MMM_Roots
         $post_variables = array('{url}' => get_permalink($post),
 					'{title}' => $post->post_title,
 					'{image}' => getPostThumbnailUrl($post),
-					'{content}' => do_shortcode($post->content),
+					'{content}' => do_shortcode($post->post_content),
 					'{slug}' => $post->post_name);
 
         return $post_variables;
