@@ -250,4 +250,19 @@ function getPostThumbnailUrl($post)
 
 	return $imageUrl;
 }
+
+function getStringValueFromArray($array, $key)
+{
+	$output = "";
+
+	if (isset($array))
+	{
+		if (isset($array[$key]))
+		{
+			$output = $array[$key];
+		}
+	}
+
+	return $output;
+}
 ?>
