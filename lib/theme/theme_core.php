@@ -1,6 +1,7 @@
 <?php
 /**
  * Core Theme Object
+ * Core Version: @core_version@
  */
 
 include_once('functions.php');
@@ -13,7 +14,7 @@ class MMM_Roots
     var $_meta_key = 'mmm_roots_meta';
     //var $_setting_prefix = 'mm_roots_';
     var $_save_key = '';
-    var $_versionnum = 1.2;
+    var $_versionnum = "@core_version@";
 	var $menu_page;
 
 	function MMM_Roots()
