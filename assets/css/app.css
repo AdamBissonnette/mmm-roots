@@ -14,6 +14,10 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    .jumbotron-image {text-align: center;}
    .jumbotron-image .icon {font-size: 16em;}
 
+/* ==========================================================================
+   Brand / Header Navigation
+   ========================================================================== */
+ .navbar-brand .logo {max-height: 100%;}
 
 /*
  * jQuery FlexSlider v2.2.0
