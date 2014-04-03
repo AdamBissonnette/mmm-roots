@@ -322,23 +322,32 @@ function ListTaxTerms($atts, $content = null)
 		$template = $content;
 	}
 
-	if (isset($taxonomy))
+	try
 	{
-		if ($class != '')
+		if (isset($taxonomy))
 		{
-			$output .= sprintf('<ul class="%s">', $class);
-		}
+			$tax_terms = get_terms($taxonomy, array('orderby'=>$orderby, 'order'=>$order, 'number'=>$numberposts));
 
-		$tax_terms = get_terms($taxonomy, array('orderby'=>$orderby, 'order'=>$order, 'number'=>$numberposts));
+			if ($class != '')
+			{
+				$output .= sprintf('<ul class="%s">', $class);
+			}
+		
+			foreach ($tax_terms as $tax_term) {
+				$output .= sprintf($template,
+					get_term_link($tax_term, $taxonomy),
+					$tax_term->name);
+			}
 
-		foreach ($tax_terms as $tax_term) {
-			$output .= sprintf($template, get_term_link($tax_term, $taxonomy), $tax_term->name);
+			if ($class != '')
+			{
+				$output .= '</ul>';
+			}
 		}
-
-		if ($class != '')
-		{
-			$output .= '</ul>';
-		}
+	}
+	catch(Exception $e)
+	{
+		$output = "Error: The requested Taxonomy terms were unavailable possibly due to an import and / or missing plugin to define their parent taxonomy.";
 	}
 
 	return $output;
