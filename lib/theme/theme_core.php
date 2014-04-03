@@ -266,9 +266,9 @@ class MMM_Roots
 		}
 	}
 	
-	function get_setting($name)
+	function get_setting($name, $defaultValue = "")
 	{
-		$output = "";
+		$output = $defaultValue;
 
 		if (isset($this->_settings[$name]))
 		{

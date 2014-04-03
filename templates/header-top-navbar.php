@@ -2,6 +2,7 @@
   global $MMM_Roots;
   $brand_logo = $MMM_Roots->get_setting("brand_logo");
   $search_in_navigation = $MMM_Roots->get_setting("search_in_navigation");
+  $title_options = $MMM_Roots->get_setting("title_options");
 ?>
 
 <header class="banner navbar navbar-default navbar-static-top" role="banner">
@@ -25,7 +26,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo home_url(); ?>/"><img class="logo" src="<?php echo $brand_logo; ?>" title="<?php bloginfo('name'); ?>"></a>
+        <a class="navbar-brand" href="<?php echo home_url(); ?>/">
+          <?php if ($title_options == 1 || $title_options == 3) { ?>
+          <img class="logo" src="<?php echo $brand_logo; ?>" title="<?php bloginfo('name'); ?>">
+          <?php } if ($title_options == 2 || $title_options == 3) { ?>
+          <span class="site_title"> <?php bloginfo('name'); ?></span>
+          <?php } ?>
+        </a>
     </div>
 
     <nav class="collapse navbar-collapse" role="navigation">

@@ -6,6 +6,9 @@
 	*/
 
 	global $theme_options;
+
+	$titleOptions = array(1 => "Logo", 2 => "Site Title", 3 => "Logo & Site Title");
+
 	$theme_options = array(
 		array('name' => 'Theme Options',
 			'id' => 'theme',
@@ -18,6 +21,11 @@
 						array('id' => 'brand_logo',
 							'label' => 'Navbar / Brand Logo',
 							'type' => 'image'),
+						array('id' => 'title_options',
+							  'label' => 'Site Title',
+							  'type' => 'select',
+							  'options' => array("note" => "Note: This will determine how the site brand  alongside the navigation is displayed", "data" => $titleOptions)
+							),
 						array('id' => 'search_in_navigation',
 							  'label' => 'Search In Navigation',
 							  'type' => 'checkbox',
