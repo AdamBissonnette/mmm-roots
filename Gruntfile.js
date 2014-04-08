@@ -4,6 +4,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    clean: {
+      dist: {
+        src: ["dist/"]
+      }
+    },
     replace: {
       dist: {
         src: ['dist/*.css','dist/**/*.php'],
@@ -40,10 +45,11 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
-  grunt.registerTask( 'dist', "Build up distribution folder", ['copy:dist','replace:dist','compress:dist']);
+  grunt.registerTask( 'dist', "Build up distribution folder", ['clean:dist', 'copy:dist','replace:dist','compress:dist']);
 
 };
