@@ -12,7 +12,7 @@ $footerText = $MMM_Roots->get_setting("footer_text");
 	 </div>
 </div>
 
-<footer>
+<footer id="site-footer">
 	<div class="container">
 		<div class="row sitedetails">
 			<div class="col-lg-12">
