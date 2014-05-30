@@ -25,6 +25,80 @@ function getFormattedPostContent($postid, $linktext)
      return $output;
 }
 
+function grid($atts, $content="")
+{
+	if ($containsRows == 1)
+	{
+		ob_start(); //Since there isn't a nice way to get this content we have to use the output buffer
+		print_r ($matches);
+
+		echo "Derp derp derp<Br /><br />";
+
+		$atts = parseRowAtts($matches[1]);
+
+		print_r($atts);
+
+		$content = ob_get_contents();
+		ob_end_clean();
+	}
+
+	return $content;
+}
+add_shortcode( 'grid', 'grid' );
+
+//http://regex101.com/ http://www.phpliveregex.com/
+
+function parseInnerRow($atts, $content)
+{
+	$rowRegex = "/(?:\[row((?:.+?=.+?)*)?\]((?:.+?|\n)*)\[\/row\])/";
+	$matches = array();
+	$containsRows = preg_match($rowRegex, $content, $matches);
+
+	if ($containsRows == 1)
+	{
+		$rows = array();
+		for ($i = 0; $i < count($matches); $i++)
+		{
+
+		}
+
+		$atts = parseRowAtts($matches[1]);
+
+		ob_start(); //Since there isn't a nice way to get this content we have to use the output buffer
+		print_r ($matches);
+
+		echo "Derp derp derp<Br /><br />";
+
+		print_r($atts);
+
+		$content = ob_get_contents();
+		ob_end_clean();
+	}
+}
+
+function parseAtts($rawAtts)
+{
+	$attsRegex = '/([a-z]*)=(?:"(.+?)")/';
+	$matches = array();
+	$containsAtts = preg_match_all($attsRegex, $rawAtts, $matches);
+
+	$atts = array();
+
+	if ($containsAtts == 1)
+	{
+		for ($i = 0; $i < count($matches[0]); $i++)
+		{
+			$cur_key = $matches[1][$i];
+			$cur_value = $matches[2][$i];
+			$atts[$cur_key] = $cur_value;
+		}
+	}
+
+	return $atts;
+}
+
+
+
 function row($atts, $content="")
 {
 	extract( shortcode_atts( array(
