@@ -27,19 +27,41 @@ function getFormattedPostContent($postid, $linktext)
 
 function grid($atts, $content="")
 {
-	if ($containsRows == 1)
+	$rowRegex = "/((?:\[(?:\/)?row(?:(?:.+?=.+?)*)?\]))/";
+
+	$matches = null;
+	$matchCount = preg_match_all($rowRegex, $content, $matches);
+
+	$output = "";
+
+	//Must have 2 or more matches and the total must be even
+	if ($matchCount > 1 & $matchCount % 2 == 0)
 	{
-		ob_start(); //Since there isn't a nice way to get this content we have to use the output buffer
-		print_r ($matches);
+		$rowCount = 0;
+		$openRows = array();
 
-		echo "Derp derp derp<Br /><br />";
+		for ($i = 0; $i < $matchCount; $i++)
+		{
+			$cur_match = $matches[0][$i];
 
-		$atts = parseRowAtts($matches[1]);
+			if (strpos($cur_match, '[/row') !== false)
+			{
+				$content = preg_replace("/row/", "r" . $openRows[0], $content, 1);
+				array_shift($openRows);
+			}
+			else
+			{
+				$rowCount++;
+				$content = preg_replace("/row/", "r" . $rowCount, $content, 1);
+				array_unshift($openRows, $rowCount);
+			}
+		}
 
-		print_r($atts);
-
-		$content = ob_get_contents();
-		ob_end_clean();
+		/*
+			Work from the last row to the first row
+				parse atts
+				replace [r#].+?[/r#] with the results of row($atts, $content)
+		*/
 	}
 
 	return $content;
@@ -47,6 +69,8 @@ function grid($atts, $content="")
 add_shortcode( 'grid', 'grid' );
 
 //http://regex101.com/ http://www.phpliveregex.com/
+
+//(?:\[(?:\/)?row(?:(?:.+?=.+?)*)?\])
 
 function parseInnerRow($atts, $content)
 {
