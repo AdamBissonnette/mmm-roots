@@ -25,4 +25,7 @@
 
 	// Hook into the 'init' action
 	//add_action( 'init', 'custom_navigation_menus' );
+
+	remove_filter( 'the_content', 'wpautop' );
+	add_filter( 'the_content', 'wpautop' , 12);
 ?>

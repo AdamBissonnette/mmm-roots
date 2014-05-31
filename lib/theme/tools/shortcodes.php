@@ -27,10 +27,10 @@ function getFormattedPostContent($postid, $linktext)
 
 function grid($atts, $content="")
 {
-	$rowRegex = "/((?:\[(?:\/)?row(?:(?:.+?=.+?)*)?\]))/";
+	$rowRegex = "/(?:\[(?:\/)?row(?:(?:.+?=.+?)*)?\])/";
 
-	$matches = null;
-	$matchCount = preg_match_all($rowRegex, $content, $matches);
+	$out = null;
+	$matchCount = preg_match_all($rowRegex, $content, $out);
 
 	$output = "";
 
@@ -39,14 +39,16 @@ function grid($atts, $content="")
 	{
 		$rowCount = 0;
 		$openRows = array();
+		$rows = array();
 
 		for ($i = 0; $i < $matchCount; $i++)
 		{
-			$cur_match = $matches[0][$i];
+			$cur_match = $out[0][$i];
 
 			if (strpos($cur_match, '[/row') !== false)
 			{
 				$content = preg_replace("/row/", "r" . $openRows[0], $content, 1);
+				$rows[$openRows[0]]["close"] = preg_replace("/row/", "r" . $openRows[0], $cur_match, 1);
 				array_shift($openRows);
 			}
 			else
@@ -54,74 +56,54 @@ function grid($atts, $content="")
 				$rowCount++;
 				$content = preg_replace("/row/", "r" . $rowCount, $content, 1);
 				array_unshift($openRows, $rowCount);
+				$rows[$rowCount]["open"] = preg_replace("/row/", "r" . $rowCount, $cur_match, 1);
 			}
 		}
 
-		/*
-			Work from the last row to the first row
-				parse atts
-				replace [r#].+?[/r#] with the results of row($atts, $content)
-		*/
+		for ($i = $rowCount; $i > 0; $i--)
+		{
+			$openLen = strlen($rows[$i]["open"]);
+			$closeLen = strlen($rows[$i]["close"]);
+
+			$outerStart = strpos($content, $rows[$i]["open"]);
+			$outerEnd = strpos($content, $rows[$i]["close"]) + $closeLen;
+			$rowLength = $outerEnd - $outerStart;
+
+			$innerStart = $outerStart + $openLen;
+			$innerEnd = strpos($content, $rows[$i]["close"]);
+			$innerLength = $innerEnd - $innerStart;
+
+			$rowAtts = parseAtts($rows[$i]["open"]);
+			$rowContent = substr($content, $innerStart, $innerLength);
+
+			$content = substr_replace($content, row($rowAtts, $rowContent), $outerStart, $rowLength);
+		}
 	}
 
 	return $content;
 }
 add_shortcode( 'grid', 'grid' );
 
-//http://regex101.com/ http://www.phpliveregex.com/
-
-//(?:\[(?:\/)?row(?:(?:.+?=.+?)*)?\])
-
-function parseInnerRow($atts, $content)
-{
-	$rowRegex = "/(?:\[row((?:.+?=.+?)*)?\]((?:.+?|\n)*)\[\/row\])/";
-	$matches = array();
-	$containsRows = preg_match($rowRegex, $content, $matches);
-
-	if ($containsRows == 1)
-	{
-		$rows = array();
-		for ($i = 0; $i < count($matches); $i++)
-		{
-
-		}
-
-		$atts = parseRowAtts($matches[1]);
-
-		ob_start(); //Since there isn't a nice way to get this content we have to use the output buffer
-		print_r ($matches);
-
-		echo "Derp derp derp<Br /><br />";
-
-		print_r($atts);
-
-		$content = ob_get_contents();
-		ob_end_clean();
-	}
-}
-
 function parseAtts($rawAtts)
 {
 	$attsRegex = '/([a-z]*)=(?:"(.+?)")/';
-	$matches = array();
-	$containsAtts = preg_match_all($attsRegex, $rawAtts, $matches);
+	$out = array();
+	$containsAtts = preg_match_all($attsRegex, $rawAtts, $out);
 
 	$atts = array();
 
 	if ($containsAtts == 1)
 	{
-		for ($i = 0; $i < count($matches[0]); $i++)
+		for ($i = 0; $i < count($out[0]); $i++)
 		{
-			$cur_key = $matches[1][$i];
-			$cur_value = $matches[2][$i];
+			$cur_key = $out[1][$i];
+			$cur_value = $out[2][$i];
 			$atts[$cur_key] = $cur_value;
 		}
 	}
 
 	return $atts;
 }
-
-
 
 function row($atts, $content="")
 {
