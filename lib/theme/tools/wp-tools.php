@@ -267,6 +267,81 @@ function getFontAwesomeSelectArray()
 
 
 /* WP Customizer */
+
+/**
+ * Adds the individual sections, settings, and controls to the theme customizer
+ */
+function mmm_site_customizer( $wp_customize ) {
+	global $customizer_sections;
+
+	if ($customizer_sections != null)
+	{
+		foreach ($customizer_sections as $section)
+		{
+			add_customizer_section($wp_customize, $section["id"], $section["name"], $section["description"]);
+
+			foreach ($section["settings"] as $setting)
+			{
+				add_section_setting($wp_customize, $section["id"], $setting["id"], $setting["name"], $setting["default"], $setting["type"]);
+			}
+			
+		}
+	}
+
+    if ($wp_customize->is_preview() && ! is_admin() ) {
+    	add_action('wp_footer', 'mmm_customize_preview', 21);
+    }
+}
+
+function mmm_customize_preview() {
+	global $customizer_sections;
+
+	$customizeJS = "";
+
+	if ($customizer_sections != null)
+	{
+		foreach ($customizer_sections as $section)
+		{
+			foreach ($section["settings"] as $setting)
+			{
+				if ($setting["type"] == "color")
+				{
+					$custom_js = gen_customize_js($setting["id"], $setting["hooks"]);
+					//var_dump($custom_js);
+					$customizeJS .= $custom_js;
+				}
+			}
+		}
+	}
+
+	?><script type="text/javascript">( function( $ ) {<?php echo $customizeJS; ?>} )( jQuery )</script><?php
+}
+
+function mmm_customize_css()
+{
+	global $customizer_sections;
+	$customizeCSS = "";
+
+	if ($customizer_sections != null)
+	{
+		foreach ($customizer_sections as $section)
+		{
+			foreach ($section["settings"] as $setting)
+			{
+				if ($setting["type"] == "color")
+				{
+					$custom_css = gen_customize_css($setting["id"], $setting["hooks"]);
+					//var_dump($custom_css);
+					$customizeCSS .= $custom_css;
+				}
+			}
+		}
+	}
+
+	?><style type="text/css"><?php echo $customizeCSS; ?>}</style>
+    <?php
+}
+
 function add_customizer_section(WP_Customize_Manager $wp_customize, $id, $label, $description, $priority=35)
 {
 	$wp_customize->add_section(
@@ -336,6 +411,68 @@ function add_color_setting(WP_Customize_Manager $wp_customize, $section_id, $set
 	        )
 	    )
 	);
+}
+
+function gen_customize_js($customizeKey, $arrClassStyle)
+{
+	$hooks = "";
+	$hook_template = "$('%s').css('%s', %s );";
+	$content_template = "wp.customize('%s', function( value ) {value.bind(function(to) {%s});});\n";
+
+	foreach ($arrClassStyle as $class => $style)
+	{
+		$arrStyleValue = explode(",", $style);
+
+		foreach ($arrStyleValue as $stylevalue) {
+			$stylevalue = explode("|", $stylevalue);
+			$cur_style = $stylevalue[0];
+			$value = "to";
+
+			if (count($stylevalue) > 1)
+			{
+				$value = sprintf("'%s' + %s", $stylevalue[1], $value);
+			}
+
+			$hooks .= sprintf($hook_template, $class, $cur_style, $value);
+		}
+	}
+
+	$content = sprintf($content_template, $customizeKey, $hooks);
+
+	return $content;
+}
+
+function gen_customize_css($customizeKey, $arrClassStyle)
+{
+	$hooks = "";
+	$hook_template_wrapper = "%s {%s} ";
+	$hook_template = "%s: %s; ";
+	$content_template = "/*%s*/ %s\n";
+
+	foreach ($arrClassStyle as $class => $style)
+	{
+		$arrStyleValue = explode(",", $style);
+		$inner_hooks = "";
+
+		foreach ($arrStyleValue as $stylevalue) {
+			$stylevalue = explode("|", $stylevalue);
+			$cur_style = $stylevalue[0];
+			$value = get_theme_mod($customizeKey);
+
+			if (count($stylevalue) > 1)
+			{
+				$value = sprintf($stylevalue[1], $value);
+			}
+
+			$inner_hooks .= sprintf($hook_template, $cur_style, $value);
+		}
+
+		$hooks .= sprintf($hook_template_wrapper, $class, $inner_hooks);
+	}
+
+	$content = sprintf($content_template, $customizeKey, $hooks);
+
+	return $content;
 }
 
 ?>
