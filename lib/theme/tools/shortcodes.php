@@ -236,17 +236,14 @@ function ButtonLink($atts)
 		'icon' => ''
 	), $atts) );
 
-	$iconTemplate = '<i class="icon-%s"></i>
-	';
+	$iconTemplate = '<i class="icon-%s"></i> ';
 
 	if ($icon != '')
 	{
 		$icon = sprintf($iconTemplate, $icon);
 	}
 
-	$template = '<a class="btn %s" href="%s">
-              %s%s
-            </a>';
+	$template = '<a class="btn %s" href="%s">%s%s</a>';
 
     $output = sprintf($template, $class, $url, $icon, $title);
 
@@ -434,8 +431,6 @@ function ListTaxTerms($atts, $content = null)
 }
 
 add_shortcode( 'ListTaxTerms', 'ListTaxTerms' );
-
-
 
 function Sidebar($atts)
 {
