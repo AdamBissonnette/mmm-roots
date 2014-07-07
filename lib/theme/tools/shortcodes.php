@@ -305,14 +305,21 @@ function ListTaxonomy($atts, $content=null)
 		'category' => '',
 		'term_taxonomy' => '', //term functions will be replaced when this shortcode plays nicely with ListTaxTerms
 		'term_template' => '<a title="%2$s" href="%1$s">%2$s</a>',
-		'wrap_template' => 'li'
+		'wrap_template' => 'li',
+		'meta_query_key' => '' //featured
 	), $atts) );
 
 	$output = "";
 
 	if (isset($taxonomy))
 	{
+
 		$args = array('post_type' => $taxonomy, 'orderby' => $orderby, 'order' => $order, 'numberposts' => $numberposts, 'category' => get_cat_ID($category));
+
+		if ($meta_query_key != '')
+		{
+			$args['meta_query'] = array(array('key' => $meta_query_key, 'value' => 'yes'));
+		}
 
 		$posts = get_posts($args);
 
