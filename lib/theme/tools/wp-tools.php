@@ -304,12 +304,17 @@ function mmm_customize_preview() {
 		{
 			foreach ($section["settings"] as $setting)
 			{
-				if ($setting["type"] == "color")
-				{
-					$custom_js = gen_customize_js($setting["id"], $setting["hooks"]);
-					//var_dump($custom_js);
-					$customizeJS .= $custom_js;
+				switch ($setting["type"]) {
+					case 'image':
+						$custom_js = gen_customize_js($setting["id"], $setting["hooks"], "''; alert(%s);");
+						//var_dump($custom_js);
+					default:
+						$custom_js = gen_customize_js($setting["id"], $setting["hooks"]);
+						//var_dump($custom_js);
+						break;
 				}
+
+				$customizeJS .= $custom_js;
 			}
 		}
 	}
@@ -328,12 +333,17 @@ function mmm_customize_css()
 		{
 			foreach ($section["settings"] as $setting)
 			{
-				if ($setting["type"] == "color")
-				{
-					$custom_css = gen_customize_css($setting["id"], $setting["hooks"]);
-					//var_dump($custom_css);
-					$customizeCSS .= $custom_css;
+				switch ($setting["type"]) {
+					case 'image':
+						$custom_css = gen_customize_css($setting["id"], $setting["hooks"], "url('%s')");
+						break;
+					default:
+						$custom_css = gen_customize_css($setting["id"], $setting["hooks"]);
+						//var_dump($custom_css);
+						break;
 				}
+
+				$customizeCSS .= $custom_css;
 			}
 		}
 	}
@@ -365,6 +375,9 @@ function add_section_setting(WP_Customize_Manager $wp_customize, $section_id, $s
 		break;
 		case 'color':
 			$field = add_color_setting($wp_customize, $section_id, $setting_id, $label, $default_value);
+		break;
+		case 'image':
+			$field = add_image_setting($wp_customize, $section_id, $setting_id, $label, $default_value);
 		break;
 	}
 }
@@ -413,7 +426,31 @@ function add_color_setting(WP_Customize_Manager $wp_customize, $section_id, $set
 	);
 }
 
-function gen_customize_js($customizeKey, $arrClassStyle)
+function add_image_setting(WP_Customize_Manager $wp_customize, $section_id, $setting_id, $label, $default_value="")
+{
+	$wp_customize->add_setting(
+	    $setting_id,
+	    array(
+	        'default' => $default_value,
+	        'transport' => 'postMessage'
+	    )
+	);
+
+    $wp_customize->add_control(
+	    new WP_Customize_Image_Control(
+	        $wp_customize,
+	        $setting_id,
+	        array(
+	            'label' => $label,
+	            'section' => $section_id,
+	            'settings' => $setting_id,
+	        )
+	    )
+	);
+}
+
+
+function gen_customize_js($customizeKey, $arrClassStyle, $value_wrapper = "%s")
 {
 	$hooks = "";
 	$hook_template = "$('%s').css('%s', %s );";
@@ -426,7 +463,7 @@ function gen_customize_js($customizeKey, $arrClassStyle)
 		foreach ($arrStyleValue as $stylevalue) {
 			$stylevalue = explode("|", $stylevalue);
 			$cur_style = $stylevalue[0];
-			$value = "to";
+			$value = sprintf($value_wrapper, "to");
 
 			if (count($stylevalue) > 1)
 			{
@@ -442,11 +479,11 @@ function gen_customize_js($customizeKey, $arrClassStyle)
 	return $content;
 }
 
-function gen_customize_css($customizeKey, $arrClassStyle)
+function gen_customize_css($customizeKey, $arrClassStyle, $value_wrapper = "%s")
 {
 	$hooks = "";
-	$hook_template_wrapper = "%s {%s} ";
 	$hook_template = "%s: %s; ";
+	$hook_template_wrapper = "%s {%s} ";
 	$content_template = "/*%s*/ %s\n";
 
 	foreach ($arrClassStyle as $class => $style)
@@ -464,7 +501,7 @@ function gen_customize_css($customizeKey, $arrClassStyle)
 				$value = sprintf($stylevalue[1], $value);
 			}
 
-			$inner_hooks .= sprintf($hook_template, $cur_style, $value);
+			$inner_hooks .= sprintf($hook_template, $cur_style, sprintf($value_wrapper, $value));
 		}
 
 		$hooks .= sprintf($hook_template_wrapper, $class, $inner_hooks);
