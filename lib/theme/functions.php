@@ -7,6 +7,7 @@
 	include_once('tools/string-tools.php');
 	include_once('tools/email-tools.php');
 	include_once('tools/wp-tools.php');
+	include_once('tools/customizer-tools.php');
 	include_once('tools/shortcodes.php');
 
 	include_once('data/admin_data.php');
