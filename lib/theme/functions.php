@@ -1,13 +1,13 @@
 <?php
 	/* References */
-	include_once('MmmTools/url-tools.php');
-	include_once('MmmTools/data-tools.php');
-	include_once('MmmTools/date-tools.php');
-	include_once('MmmTools/html-tools.php');
-	include_once('MmmTools/string-tools.php');
-	include_once('MmmTools/email-tools.php');
-	include_once('MmmTools/wp-tools.php');
-	include_once('MmmTools/shortcodes.php');
+	include_once('tools/url-tools.php');
+	include_once('tools/data-tools.php');
+	include_once('tools/date-tools.php');
+	include_once('tools/html-tools.php');
+	include_once('tools/string-tools.php');
+	include_once('tools/email-tools.php');
+	include_once('tools/wp-tools.php');
+	include_once('tools/shortcodes.php');
 
 	include_once('data/admin_data.php');
 	include_once('data/taxonomy_data.php');
