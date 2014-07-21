@@ -83,6 +83,8 @@ class MMM_Roots
   		wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
   		wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
   		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
+        wp_enqueue_style( 'wp-color-picker' );
+
 
 		include_once('ui/meta_post_ui.php');
 	}
@@ -110,9 +112,10 @@ class MMM_Roots
         
         wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
        	wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
+        wp_enqueue_script( 'wp-color-picker');
   		wp_enqueue_script('formtools', get_template_directory_uri() . '/assets/js/formtools.js', false, null);
   		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
-        
+
 		include_once('ui/admin_ui.php');
     }
 
