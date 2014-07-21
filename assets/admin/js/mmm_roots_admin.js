@@ -137,4 +137,11 @@ jQuery(document).ready(function($) {
 	SetupUploadControls();
 	SetupSelects();
 	SetupSaveEvents();
+
+	$('.color-picker-field').change(function(data, handler) {
+		console.log('#' + data.target.id + '-update');
+		$('#' + data.target.id + '-update').html(data.target.value);
+	});
+
+	$('.color-picker-field').wpColorPicker();
 });
