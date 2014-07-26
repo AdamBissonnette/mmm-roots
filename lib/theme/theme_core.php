@@ -79,11 +79,11 @@ class MMM_Roots
 
         wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
         wp_enqueue_style('select2', get_template_directory_uri() . '/assets/admin/css/select2.css', false, null);
-  		wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/admin/css/font-awesome.css', false, null);
-  		wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
-  		wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
-  		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
-        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/admin/css/font-awesome.css', false, null);
+        wp_enqueue_media();
+        wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
+        wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
+        wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
 
 
 		include_once('ui/meta_post_ui.php');
@@ -102,19 +102,17 @@ class MMM_Roots
         }
         
         wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
+        wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
+        wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.7.1.min.js', false, null);
+        
         wp_enqueue_style('admin', get_template_directory_uri() . '/assets/admin/css/mmm_roots_admin.css', false, null);
         wp_enqueue_style('select2', get_template_directory_uri() . '/assets/admin/css/select2.css', false, null);
         wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/admin/css/font-awesome.css', false, null);
-
-        wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
-
-        wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.7.1.min.js', false, null);
-        
+        wp_enqueue_media();
         wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/vendor/select2.js', false, null);
-       	wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
-        wp_enqueue_script( 'wp-color-picker');
-  		wp_enqueue_script('formtools', get_template_directory_uri() . '/assets/js/formtools.js', false, null);
-  		wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
+        wp_enqueue_script('select2-sortable', get_template_directory_uri() . '/assets/js/vendor/select2.sortable.js', false, null);
+        wp_enqueue_script('formtools', get_template_directory_uri() . '/assets/js/formtools.js', false, null);
+        wp_enqueue_script('admin', get_template_directory_uri() . '/assets/admin/js/mmm_roots_admin.js', false, null);
 
 		include_once('ui/admin_ui.php');
     }
