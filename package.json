@@ -3,6 +3,7 @@
   "version": "1.1.5",
   "core_version": 1.2,
   "description": "MMM Roots",
+  "tools_namespace": "mmmroots",
   "private": true,
   "directories": {
     "doc": "docs",

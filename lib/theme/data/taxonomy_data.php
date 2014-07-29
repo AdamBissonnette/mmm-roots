@@ -29,14 +29,14 @@
 								array('id' => 'icon',
 									'label' => 'Icon',
 									'type' => 'select',
-									'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray())),
+									'options' => array("class" => 'font-awesome', "data" => MmmToolsNamespace\getFontAwesomeSelectArray())),
 								array('id' => 'image',
 									'label' => 'Image',
 									'type' => 'image'),
 								array('id' => 'sections',
 									'label' => 'Sections',
 									'type' => 'select',
-									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
+									'options' => array("data" => MmmToolsNamespace\getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
 							)
 						),
 						array('name' => 'Jumbotron Options',
@@ -76,14 +76,14 @@
 								array('id' => 'icon',
 									'label' => 'Icon',
 									'type' => 'select',
-									'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray())),
+									'options' => array("class" => 'font-awesome', "data" => MmmToolsNamespace\getFontAwesomeSelectArray())),
 								array('id' => 'image',
 									'label' => 'Image',
 									'type' => 'image'),
 								array('id' => 'sections',
 									'label' => 'Sections',
 									'type' => 'select',
-									'options' => array("data" => getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
+									'options' => array("data" => MmmToolsNamespace\getTaxonomySelectArray("page-section"), "isMultiple" => true, "updateRegion" => true))
 							)
 						)
 					)

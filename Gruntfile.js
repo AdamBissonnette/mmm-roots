@@ -21,6 +21,10 @@ module.exports = function(grunt) {
         {
           from: '@core_version@',
           to: '<%= pkg.core_version %>'
+        },
+        {
+          from: 'MmmToolsNamespace',
+          to: '<%= pkg.tools_namespace %>'
         }]
       }
     },

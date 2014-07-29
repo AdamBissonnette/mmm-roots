@@ -1,4 +1,6 @@
 <?php
+use \MmmToolsNamespace as tools;
+
 	/*
 		Tabs
 		Sections
@@ -38,7 +40,7 @@
 						array('id' => 'icon_default',
 							'label' => 'Default Icon',
 							'type' => 'select',
-							'options' => array("class" => 'font-awesome', "data" => getFontAwesomeSelectArray()))
+							'options' => array("class" => 'font-awesome', "data" => tools\getFontAwesomeSelectArray()))
 					)
 				)
 			)

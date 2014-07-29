@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Core Theme Object
  * Core Version: @core_version@
@@ -77,7 +78,7 @@ class MMM_Roots
 
 		$values = get_post_meta($post->ID, $this->_meta_key, true);
 
-        load_admin_assets();
+        \MmmToolsNamespace\load_admin_assets();
 
 		include_once('ui/meta_post_ui.php');
 	}
@@ -98,7 +99,7 @@ class MMM_Roots
         wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/plugins.js', false, null);
         wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-1.7.1.min.js', false, null);
         
-        load_admin_assets();
+        \MmmToolsNamespace\load_admin_assets();
 
 		include_once('ui/admin_ui.php');
     }

@@ -12,7 +12,7 @@
 			<?php
 				global $theme_options;
 				
-				echo OutputThemeData($theme_options);
+				echo MmmToolsNamespace\OutputThemeData($theme_options);
 			?>
 			
 			<div class="row form-controls">
