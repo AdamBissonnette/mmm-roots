@@ -72,7 +72,7 @@
 }
 
 .mmm_postmeta_wrapper label {
-	width: 200px;
+	width: 210px;
 	float: left;
 	display: block;
 	margin: 10px 0 0;
@@ -191,3 +191,8 @@ border:1px solid #ccc;border-bottom-color:#bbb; border-radius:15px;-webkit-box-s
 .mmm-update-region {margin: 15px 0 0 20px;}
 .mmm-update-region label {width: 180px;}
 .mmm-update-content {margin: 0 20px 0 180px; border: 1px solid #aaa; border-radius: 4px; padding: 5px; background: #fff; width: 188px;}
+
+.color-picker-container {width: 200px; display: inline-block;}
+.alpha_range {display: inline;}
+.alpha_output {display: block; float: right; line-height: 2em;}
+.hex_color {margin-top: 2px; display: block; float: left;}

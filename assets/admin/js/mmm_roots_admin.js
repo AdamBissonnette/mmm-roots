@@ -122,6 +122,53 @@ function UpdateTextFieldFromSelect()
 }
 
 
+function convert_hex_to_rgb(hex)
+{
+    h = (hex.charAt(0)=="#") ? hex.substring(1,7):hex;
+
+    r = parseInt((h).substring(0,2),16);
+    g = parseInt((h).substring(2,4),16);
+    b = parseInt((h).substring(4,6),16);
+
+    return r + ", " + g + ", " + b;
+}
+
+function convert_rgb_to_hex(rgb_array)
+{
+    r = toHex(rgb_array[0]);
+    g = toHex(rgb_array[1]);
+    b = toHex(rgb_array[2]);
+
+    return r + g + b;
+}
+
+function toHex(n) {
+    n = parseInt(n,10);
+    if (isNaN(n)) return "00";
+    n = Math.max(0,Math.min(n,255));
+    return "0123456789ABCDEF".charAt((n-n%16)/16)
+      + "0123456789ABCDEF".charAt(n%16);
+}
+
+function update_color_picker_control(parent_id)
+{
+    alpha_id = parent_id + "_alpha";
+    color_picker_id = parent_id + "_color";
+    control_id = parent_id;
+
+    if (jQuery(alpha_id).val() == 10)
+    {
+        jQuery(control_id).val(jQuery(color_picker_id).val());
+    }
+    else
+    {
+        rgb = convert_hex_to_rgb(jQuery(color_picker_id).val());
+        jQuery(control_id).val("rgba(" + rgb + ", " + jQuery(alpha_id).val() / 10 + ")");
+    }
+
+    jQuery(control_id).change();
+}
+
 jQuery(document).ready(function($) {
 	$('#btnOptionsSave').click(function(e) {
 		e.preventDefault();
@@ -138,10 +185,104 @@ jQuery(document).ready(function($) {
 	SetupSelects();
 	SetupSaveEvents();
 
-	$('.color-picker-field').change(function(data, handler) {
-		console.log('#' + data.target.id + '-update');
+	/* $('.hex_color').change(function(data, handler) {
 		$('#' + data.target.id + '-update').html(data.target.value);
-	});
+	}); */
 
-	$('.color-picker-field').wpColorPicker();
+	var options = {
+			change: function(event, ui) {console.log(event.target);}
+		};
+
+	$('.hex_color').wpColorPicker(options);
+
+	mmmcolorpicker = {
+	    init: function() {
+	        $.each($('.mmm_color_picker'), function (i, elem) {
+	            var parent_id = '#' + elem.id;
+	            var color_input = parent_id + "_color";
+	            var range_input = parent_id + "_alpha";
+	            var range_output = parent_id + "_output";
+
+
+	            var curVal = $(elem).val().replace("rgba(", "");
+	            curVal = curVal.replace(")", "");
+	            curVal = curVal.replace("0.", "");
+	            curVal = curVal.split(",");
+
+	            if (curVal.length > 1)
+	            {
+	                hexVal = convert_rgb_to_hex(curVal);
+	                $(color_input).val(hexVal).change();
+	                
+	                alphaVal = curVal[3];
+
+	                $(range_output).html(alphaVal);
+	                $(range_input).val(alphaVal);
+	            }
+	            else
+	            {
+	                $(color_input).val(curVal).change();
+	                //In this case we've found a hex value so there is no alpha
+	            }
+	        });
+
+	        var options = {
+				change: function(event, ui) {
+					parent_id = '#' + $(event.target).parent().parent().parent().attr('for');
+					update_color_picker_control(parent_id);
+				}
+			};
+
+			$('.hex_color').wpColorPicker(options);
+
+	        $('.alpha_range').change(function(e) {
+	            output_control = $('#' + $(e.target).parent().attr('for') + "_output");
+	            output_control.html(e.target.value);
+
+	            update_color_picker_control('#' + $(e.target).parent().attr('for'));
+	        });
+	    } // end init
+	}; // end mmm.colorpicker
+
+	mmmcolorpicker.init();
+
+	// Object for creating WordPress 3.5 media upload menu 
+	// for selecting theme images.
+	wp.media.MmmMediaManager = {
+	     
+	    init: function() {
+	        // Create the media frame.
+	        this.frame = wp.media.frames.MmmMediaManager = wp.media({
+	            title: 'Choose Image',
+	            library: {
+	                type: 'image'
+	            },
+	            button: {
+	                text: 'Insert',
+	            }
+	        });
+	 
+	        // When an image is selected, run a callback.
+	        this.frame.on( 'select', function() {
+	            // Grab the selected attachment.
+	            var attachment = wp.media.MmmMediaManager.frame.state().get('selection').first(),
+	                controllerName = wp.media.MmmMediaManager.$el.data('controller');
+	             
+	            controller = wp.customize.control.instance(controllerName);
+	            controller.thumbnailSrc(attachment.attributes.url);
+	            controller.setting.set(attachment.attributes.url);
+	        });
+
+	        $('.open-media-library').click( function( event ) {
+	            wp.media.MmmMediaManager.$el = $(this);
+	            var controllerName = $(this).data('controller');
+	            event.preventDefault();
+	 
+	            wp.media.MmmMediaManager.frame.open();
+	        });
+	         
+	    } // end init
+	}; // end MmmMediaManager
+	 
+	wp.media.MmmMediaManager.init();
 });
