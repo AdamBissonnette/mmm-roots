@@ -112,3 +112,4 @@ html[xmlns] .slides {display: block;}
    WP Admin Bar Fixes
    ========================================================================== */
 .admin-bar #wpadminbar .ab-item img.media-object {float: none !important;}
+.admin-bar .navbar-fixed-top {margin-top: 32px;}

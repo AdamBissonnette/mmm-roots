@@ -194,7 +194,7 @@ class MMM_Roots
 	    if (in_array($post->post_type, $taxonomySlugs))
 	    {
 	   		$taxonomyKey = array_search($post->post_type, $taxonomySlugs);
-	   		$metafields = GetThemeDataFields($taxonomies[$taxonomyKey]["options"]);
+	   		$metafields = \MmmToolsNamespace\GetThemeDataFields($taxonomies[$taxonomyKey]["options"]);
 
 			$metadata = array();
 
