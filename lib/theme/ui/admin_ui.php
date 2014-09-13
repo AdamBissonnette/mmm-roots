@@ -1,3 +1,5 @@
+<?php global $MMM_Roots; ?>
+
 <div class="mmm_wrapper">
 	<div class="container">
 		<div class="row">
@@ -12,7 +14,7 @@
 			<?php
 				global $theme_options;
 				
-				echo MmmToolsNamespace\OutputThemeData($theme_options);
+				echo MmmToolsNamespace\OutputThemeData($theme_options, null, $MMM_Roots);
 			?>
 			
 			<div class="row form-controls">
