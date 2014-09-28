@@ -36,8 +36,10 @@ class MMM_Roots
 		
 		//Custom Meta
 		add_action( 'admin_init', array(&$this, 'custom_metabox'));
-
 		add_action( 'save_post', array(&$this, '_save_post_meta'), 10, 2 );
+
+		//Custom CSS for taxonomy icons
+		add_action('admin_head', array(&$this, 'custom_dashboard_css'));
     }
 
     static function MMM_Roots_install() {
@@ -48,6 +50,12 @@ class MMM_Roots
 		//$this->_set_standart_values($themeSettings);
 		
 		add_option($_settings_key . "_versionnum", $_versionnum);
+	}
+
+	function custom_dashboard_css()
+	{
+		wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/css/fontawesome.css', false, null);
+		wp_enqueue_style('mmm_roots_dashboard', get_template_directory_uri() . '/assets/css/dashboard.css', false, null);
 	}
 
 	function custom_metabox(){
